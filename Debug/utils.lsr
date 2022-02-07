@@ -1,0 +1,40 @@
+STMicroelectronics assembler v4.52   (C)1987-2022   Mon Feb 07 23:41:25 2022
+Page 1  Assembler
+                                               c:\project\stm8\bit_asm\utils.asm
+
+   1                         stm8/     
+   2                                   
+   3                                   segment  'rom'
+   4                                   
+   5                         .delay:   
+   6  000000   A601                          ld       a,#$01
+   7  000002   90AE1500                      ldw      y,#$1500                 ; 
+   8                         loop:     
+   9  000006   72A20001                      subw     y, #$01                  ; 
+  10  00000A   A200                          sbc      a,#0                      ; 
+  11  00000C R 26F8                          jrne     loop
+  12  00000E   81                            ret      
+  13                         
+  14                         .delay_10ms:  
+  15  00000F   AED400                        ldw      x, #$D400                ; 
+  16                         loop2:    
+  17  000012   5A                            decw     x             ; 
+  18  000013 R 26FD                          jrne     loop2
+  19  000015   81                            ret      
+  20                         
+  21  000016                                 end      
+STMicroelectronics assembler v4.52   (C)1987-2022   Mon Feb 07 23:41:25 2022
+Page 2  Assembler
+                                               c:\project\stm8\bit_asm\utils.asm
+
+Symbol Name                       Value     Call       Type  Scope      Rel.  Line  Privacy  Segment   Size  Bytes File
+
+delay                                 0000         no  WORD  Internal   rel      5  public   text         6     0  -
+delay_10ms                            000F         no  WORD  Internal   rel     14  public   text         3     0  -
+
+loop                                  0006         no  WORD  Internal   rel      8  private  text         9     0  -
+loop2                                 0012         no  WORD  Internal   rel     16  private  text         4     0  -
+
+
+4 labels
+No errors on assembly of 'c:\project\stm8\bit_asm\utils.asm'

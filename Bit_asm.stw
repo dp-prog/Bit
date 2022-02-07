@@ -1,0 +1,12 @@
+;	STMicroelectronics Workspace file
+
+[Version]
+Keyword=ST7Workspace-V0.7
+
+[Project0]
+Filename=bit_asm.stp
+Dependencies=
+[Options]
+ActiveProject=bit_asm
+ActiveConfig=Debug
+AddSortedElements=0

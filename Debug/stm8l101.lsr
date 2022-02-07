@@ -1,0 +1,529 @@
+STMicroelectronics assembler v4.52   (C)1987-2022   Mon Feb 07 23:41:25 2022
+Page 1  Assembler
+                                               c:\project\stm8\bit_asm\stm8l101.asm
+
+   1                         stm8/     
+   2                         
+   3                         ; STM8L101.asm
+   4                         ; Copyright (c) 2003-2017 STMicroelectronics
+   5                         ; STM8L101
+   6                         
+   7  000000                                 BYTES                  ; following addresses are 8-bit 
+                                                                ;length
+   8                         
+   9                                   segment  byte at 0-7F 'periph'
+  10                         
+  11  000000                                 WORDS                  ; following addresses are 16-bit
+                                                                ; length
+  12                         
+  13                                   segment  byte at 5000 'periph2'
+  14                         
+  15                         
+  16                         ; Port A at 0x5000
+  17                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  18  005000                       .PA_ODR   DS.B     1             ; Port A data output latch 
+                                                                ;register
+  19  005001                       .PA_IDR   DS.B     1             ; Port A input pin value 
+                                                                ;register
+  20  005002                       .PA_DDR   DS.B     1             ; Port A data direction 
+                                                                ;register
+  21  005003                       .PA_CR1   DS.B     1             ; Port A control register 1
+  22  005004                       .PA_CR2   DS.B     1             ; Port A control register 2
+  23                         
+  24                         ; Port B at 0x5005
+  25                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  26  005005                       .PB_ODR   DS.B     1             ; Port B data output latch 
+                                                                ;register
+  27  005006                       .PB_IDR   DS.B     1             ; Port B input pin value 
+                                                                ;register
+  28  005007                       .PB_DDR   DS.B     1             ; Port B data direction 
+                                                                ;register
+  29  005008                       .PB_CR1   DS.B     1             ; Port B control register 1
+  30  005009                       .PB_CR2   DS.B     1             ; Port B control register 2
+  31                         
+  32                         ; Port C at 0x500a
+  33                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  34  00500A                       .PC_ODR   DS.B     1             ; Port C data output latch 
+                                                                ;register
+  35  00500B                       .PC_IDR   DS.B     1             ; Port C input pin value 
+                                                                ;register
+  36  00500C                       .PC_DDR   DS.B     1             ; Port C data direction 
+                                                                ;register
+  37  00500D                       .PC_CR1   DS.B     1             ; Port C control register 1
+  38  00500E                       .PC_CR2   DS.B     1             ; Port C control register 2
+  39                         
+  40                         ; Port D at 0x500f
+  41                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  42  00500F                       .PD_ODR   DS.B     1             ; Port D data output latch 
+STMicroelectronics assembler v4.52   (C)1987-2022   Mon Feb 07 23:41:25 2022
+Page 2  Assembler
+                                               c:\project\stm8\bit_asm\stm8l101.asm
+
+                                                                ;register
+  43  005010                       .PD_IDR   DS.B     1             ; Port D input pin value 
+                                                                ;register
+  44  005011                       .PD_DDR   DS.B     1             ; Port D data direction 
+                                                                ;register
+  45  005012                       .PD_CR1   DS.B     1             ; Port D control register 1
+  46  005013                       .PD_CR2   DS.B     1             ; Port D control register 2
+  47  005014                       reserved1  DS.B     60            ; unused
+  48                         
+  49                         ; Flash at 0x5050
+  50                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  51  005050                       .FLASH_CR1  DS.B     1             ; Flash control register 1
+  52  005051                       .FLASH_CR2  DS.B     1             ; Flash control register 2
+  53  005052                       .FLASH_PUKR  DS.B     1             ; Flash Program memory 
+                                                                ;unprotection register
+  54  005053                       .FLASH_DUKR  DS.B     1             ; Data EEPROM unprotection 
+                                                                ;register
+  55  005054                       .FLASH_IAPSR  DS.B     1             ; Flash in-application 
+                                                                ;programming status register
+  56  005055                       reserved2  DS.B     75            ; unused
+  57                         
+  58                         ; External Interrupt Control Register (ITC) at 0x50a0
+  59                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  60  0050A0                       .EXTI_CR1  DS.B     1             ; External interrupt control 
+                                                                ;register 1
+  61  0050A1                       .EXTI_CR2  DS.B     1             ; External interrupt control 
+                                                                ;register 2
+  62  0050A2                       .EXTI_CR3  DS.B     1             ; External interrupt control 
+                                                                ;register 3
+  63  0050A3                       .EXTI_SR1  DS.B     1             ; External interrupt status 
+                                                                ;register 1
+  64  0050A4                       .EXTI_SR2  DS.B     1             ; External interrupt status 
+                                                                ;register 2
+  65  0050A5                       .EXTI_CONF  DS.B     1             ; External interrupt port select
+                                                                ; register
+  66                         
+  67                         ; Wait For Event (WFE) at 0x50a6
+  68                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  69  0050A6                       .WFE_CR1  DS.B     1             ; WFE control register 1
+  70  0050A7                       .WFE_CR2  DS.B     1             ; WFE control register 2
+  71  0050A8                       reserved3  DS.B     8             ; unused
+  72                         
+  73                         ; Reset (RST) at 0x50b0
+  74                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  75  0050B0                       .RST_CR   DS.B     1             ; Reset control register
+  76  0050B1                       .RST_SR   DS.B     1             ; Reset status register
+  77  0050B2                       reserved4  DS.B     14            ; unused
+  78                         
+  79                         ; Clock Control (CLK) at 0x50c0
+  80                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  81  0050C0                       .CLK_CKDIVR  DS.B     1             ; Clock divider register
+  82  0050C1                       reserved5  DS.B     2             ; unused
+STMicroelectronics assembler v4.52   (C)1987-2022   Mon Feb 07 23:41:25 2022
+Page 3  Assembler
+                                               c:\project\stm8\bit_asm\stm8l101.asm
+
+  83  0050C3                       .CLK_PCKENR  DS.B     1             ; Peripheral clock gating 
+                                                                ;register
+  84  0050C4                       reserved6  DS.B     1             ; unused
+  85  0050C5                       .CLK_CCOR  DS.B     1             ; Configurable clock control 
+                                                                ;register
+  86  0050C6                       reserved7  DS.B     26            ; unused
+  87                         
+  88                         ; Independent Watchdog (IWDG) at 0x50e0
+  89                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  90  0050E0                       .IWDG_KR  DS.B     1             ; IWDG Key Register
+  91  0050E1                       .IWDG_PR  DS.B     1             ; IWDG Prescaler Register
+  92  0050E2                       .IWDG_RLR  DS.B     1             ; IWDG Reload Register
+  93  0050E3                       reserved8  DS.B     13            ; unused
+  94                         
+  95                         ; Auto Wake-Up (AWU) at 0x50f0
+  96                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  97  0050F0                       .AWU_CSR  DS.B     1             ; AWU Control/Status Register
+  98  0050F1                       .AWU_APR  DS.B     1             ; AWU asynchronous prescaler 
+                                                                ;buffer register
+  99  0050F2                       .AWU_TBR  DS.B     1             ; AWU Timebase selection 
+                                                                ;register
+ 100                         
+ 101                         ; Beeper (BEEP) at 0x50f3
+ 102                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+ 103  0050F3                       .BEEP_CSR  DS.B     1             ; BEEP Control/Status Register
+ 104  0050F4                       reserved9  DS.B     268           ; unused
+ 105                         
+ 106                         ; Serial Peripheral Interface (SPI) at 0x5200
+ 107                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+ 108  005200                       .SPI_CR1  DS.B     1             ; SPI Control Register 1
+ 109  005201                       .SPI_CR2  DS.B     1             ; SPI Control Register 2
+ 110  005202                       .SPI_ICR  DS.B     1             ; SPI Interrupt Control 
+                                                                ;Register
+ 111  005203                       .SPI_SR   DS.B     1             ; SPI Status Register
+ 112  005204                       .SPI_DR   DS.B     1             ; SPI Data Register
+ 113  005205                       reserved10  DS.B     11            ; unused
+ 114                         
+ 115                         ; I2C Bus Interface (I2C) at 0x5210
+ 116                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+ 117  005210                       .I2C_CR1  DS.B     1             ; I2C control register 1
+ 118  005211                       .I2C_CR2  DS.B     1             ; I2C control register 2
+ 119  005212                       .I2C_FREQR  DS.B     1             ; I2C frequency register
+ 120  005213                       .I2C_OARL  DS.B     1             ; I2C Own address register low
+ 121  005214                       .I2C_OARH  DS.B     1             ; I2C Own address register high
+ 122  005215                       reserved11  DS.B     1             ; unused
+ 123  005216                       .I2C_DR   DS.B     1             ; I2C data register
+ 124  005217                       .I2C_SR1  DS.B     1             ; I2C status register 1
+ 125  005218                       .I2C_SR2  DS.B     1             ; I2C status register 2
+ 126  005219                       .I2C_SR3  DS.B     1             ; I2C status register 3
+ 127  00521A                       .I2C_ITR  DS.B     1             ; I2C interrupt control 
+                                                                ;register
+ 128  00521B                       .I2C_CCRL  DS.B     1             ; I2C Clock control register 
+STMicroelectronics assembler v4.52   (C)1987-2022   Mon Feb 07 23:41:25 2022
+Page 4  Assembler
+                                               c:\project\stm8\bit_asm\stm8l101.asm
+
+                                                                ;low
+ 129  00521C                       .I2C_CCRH  DS.B     1             ; I2C Clock control register 
+                                                                ;high
+ 130  00521D                       .I2C_TRISER  DS.B     1             ; I2C TRISE register
+ 131  00521E                       reserved12  DS.B     18            ; unused
+ 132                         
+ 133                         ; Universal synch/asynch receiver transmitter (USART) at 
+                               ;0x5230
+ 134                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+ 135  005230                       .USART_SR  DS.B     1             ; USART Status Register
+ 136  005231                       .USART_DR  DS.B     1             ; USART Data Register
+ 137  005232                       .USART_BRR1  DS.B     1             ; USART Baud Rate Register 1
+ 138  005233                       .USART_BRR2  DS.B     1             ; USART Baud Rate Register 2
+ 139  005234                       .USART_CR1  DS.B     1             ; USART Control Register 1
+ 140  005235                       .USART_CR2  DS.B     1             ; USART Control Register 2
+ 141  005236                       .USART_CR3  DS.B     1             ; USART Control Register 3
+ 142  005237                       .USART_CR4  DS.B     1             ; USART Control Register 4
+ 143  005238                       reserved13  DS.B     24            ; unused
+ 144                         
+ 145                         ; 16-Bit Timer 2 (TIM2) at 0x5250
+ 146                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+ 147  005250                       .TIM2_CR1  DS.B     1             ; TIM2 Control register 1
+ 148  005251                       .TIM2_CR2  DS.B     1             ; TIM2 Control register 2
+ 149  005252                       .TIM2_SMCR  DS.B     1             ; TIM2 Slave Mode Control 
+                                                                ;register
+ 150  005253                       .TIM2_ETR  DS.B     1             ; TIM2 External trigger 
+                                                                ;register
+ 151  005254                       .TIM2_IER  DS.B     1             ; TIM2 Interrupt enable 
+                                                                ;register
+ 152  005255                       .TIM2_SR1  DS.B     1             ; TIM2 Status register 1
+ 153  005256                       .TIM2_SR2  DS.B     1             ; TIM2 Status register 2
+ 154  005257                       .TIM2_EGR  DS.B     1             ; TIM2 Event Generation 
+                                                                ;register
+ 155  005258                       .TIM2_CCMR1  DS.B     1             ; TIM2 Capture/Compare mode 
+                                                                ;register 1
+ 156  005259                       .TIM2_CCMR2  DS.B     1             ; TIM2 Capture/Compare mode 
+                                                                ;register 2
+ 157  00525A                       .TIM2_CCER1  DS.B     1             ; TIM2 Capture/Compare enable 
+                                                                ;register 1
+ 158  00525B                       .TIM2_CNTRH  DS.B     1             ; Data bits High
+ 159  00525C                       .TIM2_CNTRL  DS.B     1             ; Data bits Low
+ 160  00525D                       .TIM2_PSCR  DS.B     1             ; TIM2 Prescaler register
+ 161  00525E                       .TIM2_ARRH  DS.B     1             ; Data bits High
+ 162  00525F                       .TIM2_ARRL  DS.B     1             ; Data bits Low
+ 163  005260                       .TIM2_CCR1H  DS.B     1             ; Data bits High
+ 164  005261                       .TIM2_CCR1L  DS.B     1             ; Data bits Low
+ 165  005262                       .TIM2_CCR2H  DS.B     1             ; Data bits High
+ 166  005263                       .TIM2_CCR2L  DS.B     1             ; Data bits Low
+ 167  005264                       .TIM2_BKR  DS.B     1             ; TIM2 Break register
+ 168  005265                       .TIM2_OISR  DS.B     1             ; TIM2 Output idle state 
+                                                                ;register
+ 169  005266                       reserved14  DS.B     26            ; unused
+ 170                         
+ 171                         ; 16-Bit Timer 3 (TIM3) at 0x5280
+ 172                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+STMicroelectronics assembler v4.52   (C)1987-2022   Mon Feb 07 23:41:25 2022
+Page 5  Assembler
+                                               c:\project\stm8\bit_asm\stm8l101.asm
+
+                               ;;;;;;
+ 173  005280                       .TIM3_CR1  DS.B     1             ; TIM3 Control register 1
+ 174  005281                       .TIM3_CR2  DS.B     1             ; TIM3 Control register 2
+ 175  005282                       .TIM3_SMCR  DS.B     1             ; TIM3 Slave Mode Control 
+                                                                ;register
+ 176  005283                       .TIM3_ETR  DS.B     1             ; TIM3 External trigger 
+                                                                ;register
+ 177  005284                       .TIM3_IER  DS.B     1             ; TIM3 Interrupt enable 
+                                                                ;register
+ 178  005285                       .TIM3_SR1  DS.B     1             ; TIM3 Status register 1
+ 179  005286                       .TIM3_SR2  DS.B     1             ; TIM3 Status register 2
+ 180  005287                       .TIM3_EGR  DS.B     1             ; TIM3 Event Generation 
+                                                                ;register
+ 181  005288                       .TIM3_CCMR1  DS.B     1             ; TIM3 Capture/Compare mode 
+                                                                ;register 1
+ 182  005289                       .TIM3_CCMR2  DS.B     1             ; TIM3 Capture/Compare mode 
+                                                                ;register 2
+ 183  00528A                       .TIM3_CCER1  DS.B     1             ; TIM3 Capture/Compare enable 
+                                                                ;register 1
+ 184  00528B                       .TIM3_CNTRH  DS.B     1             ; Data bits High
+ 185  00528C                       .TIM3_CNTRL  DS.B     1             ; Data bits Low
+ 186  00528D                       .TIM3_PSCR  DS.B     1             ; TIM3 Prescaler register
+ 187  00528E                       .TIM3_ARRH  DS.B     1             ; Data bits High
+ 188  00528F                       .TIM3_ARRL  DS.B     1             ; Data bits Low
+ 189  005290                       .TIM3_CCR1H  DS.B     1             ; Data bits High
+ 190  005291                       .TIM3_CCR1L  DS.B     1             ; Data bits Low
+ 191  005292                       .TIM3_CCR2H  DS.B     1             ; Data bits High
+ 192  005293                       .TIM3_CCR2L  DS.B     1             ; Data bits Low
+ 193  005294                       .TIM3_BKR  DS.B     1             ; TIM3 Break register
+ 194  005295                       .TIM3_OISR  DS.B     1             ; TIM3 Output idle state 
+                                                                ;register
+ 195  005296                       reserved15  DS.B     74            ; unused
+ 196                         
+ 197                         ; 8-Bit  Timer 4 (TIM4) at 0x52e0
+ 198                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+ 199  0052E0                       .TIM4_CR1  DS.B     1             ; TIM4 Control register 1
+ 200  0052E1                       .TIM4_CR2  DS.B     1             ; TIM4 Control register 2
+ 201  0052E2                       .TIM4_SMCR  DS.B     1             ; TIM4 Slave Mode Control 
+                                                                ;register
+ 202  0052E3                       .TIM4_IER  DS.B     1             ; TIM4 Interrupt enable 
+                                                                ;register
+ 203  0052E4                       .TIM4_SR1  DS.B     1             ; TIM4 Status register 1
+ 204  0052E5                       .TIM4_EGR  DS.B     1             ; TIM4 Event Generation 
+                                                                ;register
+ 205  0052E6                       .TIM4_CNTR  DS.B     1             ; TIM4 Counter
+ 206  0052E7                       .TIM4_PSCR  DS.B     1             ; TIM4 Prescaler register
+ 207  0052E8                       .TIM4_ARR  DS.B     1             ; TIM4 Auto-reload register
+ 208  0052E9                       reserved16  DS.B     22            ; unused
+ 209                         
+ 210                         ; Infra Red Interface (IR) at 0x52ff
+ 211                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+ 212  0052FF                       .IR_CR    DS.B     1             ; Infra-red control register
+ 213                         
+ 214                         ; Comparators (CMP) at 0x5300
+ 215                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+STMicroelectronics assembler v4.52   (C)1987-2022   Mon Feb 07 23:41:25 2022
+Page 6  Assembler
+                                               c:\project\stm8\bit_asm\stm8l101.asm
+
+                               ;;;;;;
+ 216  005300                       .COMP_CR  DS.B     1             ; Comparator control register
+ 217  005301                       .COMP_CSR  DS.B     1             ; Comparator status register
+ 218  005302                       .COMP_CCS  DS.B     1             ; Comparator channel selection 
+                                                                ;register
+ 219  005303                       reserved17  DS.B     11357         ; unused
+ 220                         
+ 221                         ;  Global configuration register (CFG) at 0x7f60
+ 222                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+ 223  007F60                       .CFG_GCR  DS.B     1             ; CFG Global configuration 
+                                                                ;register
+ 224  007F61                       reserved18  DS.B     15            ; unused
+ 225                         
+ 226                         ; Interrupt Software Priority Register (ITC) at 0x7f70
+ 227                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+ 228  007F70                       .ITC_SPR1  DS.B     1             ; Interrupt Software priority 
+                                                                ;register 1
+ 229  007F71                       .ITC_SPR2  DS.B     1             ; Interrupt Software priority 
+                                                                ;register 2
+ 230  007F72                       .ITC_SPR3  DS.B     1             ; Interrupt Software priority 
+                                                                ;register 3
+ 231  007F73                       .ITC_SPR4  DS.B     1             ; Interrupt Software priority 
+                                                                ;register 4
+ 232  007F74                       .ITC_SPR5  DS.B     1             ; Interrupt Software priority 
+                                                                ;register 5
+ 233  007F75                       .ITC_SPR6  DS.B     1             ; Interrupt Software priority 
+                                                                ;register 6
+ 234  007F76                       .ITC_SPR7  DS.B     1             ; Interrupt Software priority 
+                                                                ;register 7
+ 235  007F77                       .ITC_SPR8  DS.B     1             ; Interrupt Software priority 
+                                                                ;register 8
+ 236                         
+ 237  007F78                                 end      
+STMicroelectronics assembler v4.52   (C)1987-2022   Mon Feb 07 23:41:25 2022
+Page 7  Assembler
+                                               c:\project\stm8\bit_asm\stm8l101.asm
+
+Symbol Name                       Value     Call       Type  Scope      Rel.  Line  Privacy  Segment   Size  Bytes File
+
+AWU_CSR                               50F0         no  WORD  Internal   ABS     97  public   bss          1     1  -
+AWU_APR                               50F1         no  WORD  Internal   ABS     98  public   bss          1     1  -
+AWU_TBR                               50F2         no  WORD  Internal   ABS     99  public   bss          1     1  -
+
+BEEP_CSR                              50F3         no  WORD  Internal   ABS    103  public   bss          1     1  -
+
+CLK_CKDIVR                            50C0         no  WORD  Internal   ABS     81  public   bss          1     1  -
+CLK_PCKENR                            50C3         no  WORD  Internal   ABS     83  public   bss          1     1  -
+CLK_CCOR                              50C5         no  WORD  Internal   ABS     85  public   bss          1     1  -
+COMP_CR                               5300         no  WORD  Internal   ABS    216  public   bss          1     1  -
+COMP_CSR                              5301         no  WORD  Internal   ABS    217  public   bss          1     1  -
+COMP_CCS                              5302         no  WORD  Internal   ABS    218  public   bss          1     1  -
+CFG_GCR                               7F60         no  WORD  Internal   ABS    223  public   bss          1     1  -
+
+EXTI_CR1                              50A0         no  WORD  Internal   ABS     60  public   bss          1     1  -
+EXTI_CR2                              50A1         no  WORD  Internal   ABS     61  public   bss          1     1  -
+EXTI_CR3                              50A2         no  WORD  Internal   ABS     62  public   bss          1     1  -
+EXTI_SR1                              50A3         no  WORD  Internal   ABS     63  public   bss          1     1  -
+EXTI_SR2                              50A4         no  WORD  Internal   ABS     64  public   bss          1     1  -
+EXTI_CONF                             50A5         no  WORD  Internal   ABS     65  public   bss          1     1  -
+
+FLASH_CR1                             5050         no  WORD  Internal   ABS     51  public   bss          1     1  -
+FLASH_CR2                             5051         no  WORD  Internal   ABS     52  public   bss          1     1  -
+FLASH_PUKR                            5052         no  WORD  Internal   ABS     53  public   bss          1     1  -
+FLASH_DUKR                            5053         no  WORD  Internal   ABS     54  public   bss          1     1  -
+FLASH_IAPSR                           5054         no  WORD  Internal   ABS     55  public   bss          1     1  -
+
+IWDG_KR                               50E0         no  WORD  Internal   ABS     90  public   bss          1     1  -
+IWDG_PR                               50E1         no  WORD  Internal   ABS     91  public   bss          1     1  -
+IWDG_RLR                              50E2         no  WORD  Internal   ABS     92  public   bss          1     1  -
+I2C_CR1                               5210         no  WORD  Internal   ABS    117  public   bss          1     1  -
+I2C_CR2                               5211         no  WORD  Internal   ABS    118  public   bss          1     1  -
+I2C_FREQR                             5212         no  WORD  Internal   ABS    119  public   bss          1     1  -
+I2C_OARL                              5213         no  WORD  Internal   ABS    120  public   bss          1     1  -
+I2C_OARH                              5214         no  WORD  Internal   ABS    121  public   bss          1     1  -
+I2C_DR                                5216         no  WORD  Internal   ABS    123  public   bss          1     1  -
+I2C_SR1                               5217         no  WORD  Internal   ABS    124  public   bss          1     1  -
+I2C_SR2                               5218         no  WORD  Internal   ABS    125  public   bss          1     1  -
+I2C_SR3                               5219         no  WORD  Internal   ABS    126  public   bss          1     1  -
+I2C_ITR                               521A         no  WORD  Internal   ABS    127  public   bss          1     1  -
+I2C_CCRL                              521B         no  WORD  Internal   ABS    128  public   bss          1     1  -
+I2C_CCRH                              521C         no  WORD  Internal   ABS    129  public   bss          1     1  -
+I2C_TRISER                            521D         no  WORD  Internal   ABS    130  public   bss          1     1  -
+IR_CR                                 52FF         no  WORD  Internal   ABS    212  public   bss          1     1  -
+ITC_SPR1                              7F70         no  WORD  Internal   ABS    228  public   bss          1     1  -
+ITC_SPR2                              7F71         no  WORD  Internal   ABS    229  public   bss          1     1  -
+ITC_SPR3                              7F72         no  WORD  Internal   ABS    230  public   bss          1     1  -
+ITC_SPR4                              7F73         no  WORD  Internal   ABS    231  public   bss          1     1  -
+ITC_SPR5                              7F74         no  WORD  Internal   ABS    232  public   bss          1     1  -
+ITC_SPR6                              7F75         no  WORD  Internal   ABS    233  public   bss          1     1  -
+ITC_SPR7                              7F76         no  WORD  Internal   ABS    234  public   bss          1     1  -
+ITC_SPR8                              7F77         no  WORD  Internal   ABS    235  public   bss          1     1  -
+
+PA_ODR                                5000         no  WORD  Internal   ABS     18  public   bss          1     1  -
+PA_IDR                                5001         no  WORD  Internal   ABS     19  public   bss          1     1  -
+STMicroelectronics assembler v4.52   (C)1987-2022   Mon Feb 07 23:41:25 2022
+Page 8  Assembler
+                                               c:\project\stm8\bit_asm\stm8l101.asm
+
+PA_DDR                                5002         no  WORD  Internal   ABS     20  public   bss          1     1  -
+PA_CR1                                5003         no  WORD  Internal   ABS     21  public   bss          1     1  -
+PA_CR2                                5004         no  WORD  Internal   ABS     22  public   bss          1     1  -
+PB_ODR                                5005         no  WORD  Internal   ABS     26  public   bss          1     1  -
+PB_IDR                                5006         no  WORD  Internal   ABS     27  public   bss          1     1  -
+PB_DDR                                5007         no  WORD  Internal   ABS     28  public   bss          1     1  -
+PB_CR1                                5008         no  WORD  Internal   ABS     29  public   bss          1     1  -
+PB_CR2                                5009         no  WORD  Internal   ABS     30  public   bss          1     1  -
+PC_ODR                                500A         no  WORD  Internal   ABS     34  public   bss          1     1  -
+PC_IDR                                500B         no  WORD  Internal   ABS     35  public   bss          1     1  -
+PC_DDR                                500C         no  WORD  Internal   ABS     36  public   bss          1     1  -
+PC_CR1                                500D         no  WORD  Internal   ABS     37  public   bss          1     1  -
+PC_CR2                                500E         no  WORD  Internal   ABS     38  public   bss          1     1  -
+PD_ODR                                500F         no  WORD  Internal   ABS     42  public   bss          1     1  -
+PD_IDR                                5010         no  WORD  Internal   ABS     43  public   bss          1     1  -
+PD_DDR                                5011         no  WORD  Internal   ABS     44  public   bss          1     1  -
+PD_CR1                                5012         no  WORD  Internal   ABS     45  public   bss          1     1  -
+PD_CR2                                5013         no  WORD  Internal   ABS     46  public   bss          1     1  -
+
+RST_CR                                50B0         no  WORD  Internal   ABS     75  public   bss          1     1  -
+RST_SR                                50B1         no  WORD  Internal   ABS     76  public   bss          1     1  -
+
+SPI_CR1                               5200         no  WORD  Internal   ABS    108  public   bss          1     1  -
+SPI_CR2                               5201         no  WORD  Internal   ABS    109  public   bss          1     1  -
+SPI_ICR                               5202         no  WORD  Internal   ABS    110  public   bss          1     1  -
+SPI_SR                                5203         no  WORD  Internal   ABS    111  public   bss          1     1  -
+SPI_DR                                5204         no  WORD  Internal   ABS    112  public   bss          1     1  -
+
+TIM2_CR1                              5250         no  WORD  Internal   ABS    147  public   bss          1     1  -
+TIM2_CR2                              5251         no  WORD  Internal   ABS    148  public   bss          1     1  -
+TIM2_SMCR                             5252         no  WORD  Internal   ABS    149  public   bss          1     1  -
+TIM2_ETR                              5253         no  WORD  Internal   ABS    150  public   bss          1     1  -
+TIM2_IER                              5254         no  WORD  Internal   ABS    151  public   bss          1     1  -
+TIM2_SR1                              5255         no  WORD  Internal   ABS    152  public   bss          1     1  -
+TIM2_SR2                              5256         no  WORD  Internal   ABS    153  public   bss          1     1  -
+TIM2_EGR                              5257         no  WORD  Internal   ABS    154  public   bss          1     1  -
+TIM2_CCMR1                            5258         no  WORD  Internal   ABS    155  public   bss          1     1  -
+TIM2_CCMR2                            5259         no  WORD  Internal   ABS    156  public   bss          1     1  -
+TIM2_CCER1                            525A         no  WORD  Internal   ABS    157  public   bss          1     1  -
+TIM2_CNTRH                            525B         no  WORD  Internal   ABS    158  public   bss          1     1  -
+TIM2_CNTRL                            525C         no  WORD  Internal   ABS    159  public   bss          1     1  -
+TIM2_PSCR                             525D         no  WORD  Internal   ABS    160  public   bss          1     1  -
+TIM2_ARRH                             525E         no  WORD  Internal   ABS    161  public   bss          1     1  -
+TIM2_ARRL                             525F         no  WORD  Internal   ABS    162  public   bss          1     1  -
+TIM2_CCR1H                            5260         no  WORD  Internal   ABS    163  public   bss          1     1  -
+TIM2_CCR1L                            5261         no  WORD  Internal   ABS    164  public   bss          1     1  -
+TIM2_CCR2H                            5262         no  WORD  Internal   ABS    165  public   bss          1     1  -
+TIM2_CCR2L                            5263         no  WORD  Internal   ABS    166  public   bss          1     1  -
+TIM2_BKR                              5264         no  WORD  Internal   ABS    167  public   bss          1     1  -
+TIM2_OISR                             5265         no  WORD  Internal   ABS    168  public   bss          1     1  -
+TIM3_CR1                              5280         no  WORD  Internal   ABS    173  public   bss          1     1  -
+TIM3_CR2                              5281         no  WORD  Internal   ABS    174  public   bss          1     1  -
+TIM3_SMCR                             5282         no  WORD  Internal   ABS    175  public   bss          1     1  -
+TIM3_ETR                              5283         no  WORD  Internal   ABS    176  public   bss          1     1  -
+TIM3_IER                              5284         no  WORD  Internal   ABS    177  public   bss          1     1  -
+TIM3_SR1                              5285         no  WORD  Internal   ABS    178  public   bss          1     1  -
+TIM3_SR2                              5286         no  WORD  Internal   ABS    179  public   bss          1     1  -
+STMicroelectronics assembler v4.52   (C)1987-2022   Mon Feb 07 23:41:25 2022
+Page 9  Assembler
+                                               c:\project\stm8\bit_asm\stm8l101.asm
+
+TIM3_EGR                              5287         no  WORD  Internal   ABS    180  public   bss          1     1  -
+TIM3_CCMR1                            5288         no  WORD  Internal   ABS    181  public   bss          1     1  -
+TIM3_CCMR2                            5289         no  WORD  Internal   ABS    182  public   bss          1     1  -
+TIM3_CCER1                            528A         no  WORD  Internal   ABS    183  public   bss          1     1  -
+TIM3_CNTRH                            528B         no  WORD  Internal   ABS    184  public   bss          1     1  -
+TIM3_CNTRL                            528C         no  WORD  Internal   ABS    185  public   bss          1     1  -
+TIM3_PSCR                             528D         no  WORD  Internal   ABS    186  public   bss          1     1  -
+TIM3_ARRH                             528E         no  WORD  Internal   ABS    187  public   bss          1     1  -
+TIM3_ARRL                             528F         no  WORD  Internal   ABS    188  public   bss          1     1  -
+TIM3_CCR1H                            5290         no  WORD  Internal   ABS    189  public   bss          1     1  -
+TIM3_CCR1L                            5291         no  WORD  Internal   ABS    190  public   bss          1     1  -
+TIM3_CCR2H                            5292         no  WORD  Internal   ABS    191  public   bss          1     1  -
+TIM3_CCR2L                            5293         no  WORD  Internal   ABS    192  public   bss          1     1  -
+TIM3_BKR                              5294         no  WORD  Internal   ABS    193  public   bss          1     1  -
+TIM3_OISR                             5295         no  WORD  Internal   ABS    194  public   bss          1     1  -
+TIM4_CR1                              52E0         no  WORD  Internal   ABS    199  public   bss          1     1  -
+TIM4_CR2                              52E1         no  WORD  Internal   ABS    200  public   bss          1     1  -
+TIM4_SMCR                             52E2         no  WORD  Internal   ABS    201  public   bss          1     1  -
+TIM4_IER                              52E3         no  WORD  Internal   ABS    202  public   bss          1     1  -
+TIM4_SR1                              52E4         no  WORD  Internal   ABS    203  public   bss          1     1  -
+TIM4_EGR                              52E5         no  WORD  Internal   ABS    204  public   bss          1     1  -
+TIM4_CNTR                             52E6         no  WORD  Internal   ABS    205  public   bss          1     1  -
+TIM4_PSCR                             52E7         no  WORD  Internal   ABS    206  public   bss          1     1  -
+TIM4_ARR                              52E8         no  WORD  Internal   ABS    207  public   bss          1     1  -
+
+USART_SR                              5230         no  WORD  Internal   ABS    135  public   bss          1     1  -
+USART_DR                              5231         no  WORD  Internal   ABS    136  public   bss          1     1  -
+USART_BRR1                            5232         no  WORD  Internal   ABS    137  public   bss          1     1  -
+USART_BRR2                            5233         no  WORD  Internal   ABS    138  public   bss          1     1  -
+USART_CR1                             5234         no  WORD  Internal   ABS    139  public   bss          1     1  -
+USART_CR2                             5235         no  WORD  Internal   ABS    140  public   bss          1     1  -
+USART_CR3                             5236         no  WORD  Internal   ABS    141  public   bss          1     1  -
+USART_CR4                             5237         no  WORD  Internal   ABS    142  public   bss          1     1  -
+
+WFE_CR1                               50A6         no  WORD  Internal   ABS     69  public   bss          1     1  -
+WFE_CR2                               50A7         no  WORD  Internal   ABS     70  public   bss          1     1  -
+
+reserved1                             5014         no  WORD  Internal   ABS     47  private  bss         60     1  -
+reserved2                             5055         no  WORD  Internal   ABS     56  private  bss         75     1  -
+reserved3                             50A8         no  WORD  Internal   ABS     71  private  bss          8     1  -
+reserved4                             50B2         no  WORD  Internal   ABS     77  private  bss         14     1  -
+reserved5                             50C1         no  WORD  Internal   ABS     82  private  bss          2     1  -
+reserved6                             50C4         no  WORD  Internal   ABS     84  private  bss          1     1  -
+reserved7                             50C6         no  WORD  Internal   ABS     86  private  bss         26     1  -
+reserved8                             50E3         no  WORD  Internal   ABS     93  private  bss         13     1  -
+reserved9                             50F4         no  WORD  Internal   ABS    104  private  bss        268     1  -
+reserved10                            5205         no  WORD  Internal   ABS    113  private  bss         11     1  -
+reserved11                            5215         no  WORD  Internal   ABS    122  private  bss          1     1  -
+reserved12                            521E         no  WORD  Internal   ABS    131  private  bss         18     1  -
+reserved13                            5238         no  WORD  Internal   ABS    143  private  bss         24     1  -
+reserved14                            5266         no  WORD  Internal   ABS    169  private  bss         26     1  -
+reserved15                            5296         no  WORD  Internal   ABS    195  private  bss         74     1  -
+reserved16                            52E9         no  WORD  Internal   ABS    208  private  bss         22     1  -
+reserved17                            5303         no  WORD  Internal   ABS    219  private  bss      11357     1  -
+reserved18                            7F61         no  WORD  Internal   ABS    224  private  bss         15     1  -
+
+
+155 labels
+No errors on assembly of 'c:\project\stm8\bit_asm\stm8l101.asm'

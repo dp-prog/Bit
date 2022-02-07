@@ -1,0 +1,984 @@
+STMicroelectronics assembler v4.52   (C)1987-2022   Mon Feb 07 23:41:24 2022
+Page 1  Assembler
+                                               c:\project\stm8\bit_asm\uart_mb.asm
+
+   1                         stm8/     
+   0  000000                                 #include "STM8L101.inc"
+   1                         ; STM8L101.inc
+   2                         ; Copyright (c) 2003-2017 STMicroelectronics
+   3                         
+   4  000000 U                               #ifdef   __STM8L101__
+   7  000000                                 #define  __STM8L101__ 1
+   8                         
+   9                         ; STM8L101
+  10                         
+  11                         ; Port A
+  12                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  13  000000                                 EXTERN   PA_ODR.w      ; Port A data output latch 
+                                                                ;register
+  14  000000                                 EXTERN   PA_IDR.w      ; Port A input pin value 
+                                                                ;register
+  15  000000                                 EXTERN   PA_DDR.w      ; Port A data direction 
+                                                                ;register
+  16  000000                                 EXTERN   PA_CR1.w      ; Port A control register 1
+  17  000000                                 EXTERN   PA_CR2.w      ; Port A control register 2
+  18                         ; Port B
+  19                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  20  000000                                 EXTERN   PB_ODR.w      ; Port B data output latch 
+                                                                ;register
+  21  000000                                 EXTERN   PB_IDR.w      ; Port B input pin value 
+                                                                ;register
+  22  000000                                 EXTERN   PB_DDR.w      ; Port B data direction 
+                                                                ;register
+  23  000000                                 EXTERN   PB_CR1.w      ; Port B control register 1
+  24  000000                                 EXTERN   PB_CR2.w      ; Port B control register 2
+  25                         ; Port C
+  26                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  27  000000                                 EXTERN   PC_ODR.w      ; Port C data output latch 
+                                                                ;register
+  28  000000                                 EXTERN   PC_IDR.w      ; Port C input pin value 
+                                                                ;register
+  29  000000                                 EXTERN   PC_DDR.w      ; Port C data direction 
+                                                                ;register
+  30  000000                                 EXTERN   PC_CR1.w      ; Port C control register 1
+  31  000000                                 EXTERN   PC_CR2.w      ; Port C control register 2
+  32                         ; Port D
+  33                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  34  000000                                 EXTERN   PD_ODR.w      ; Port D data output latch 
+                                                                ;register
+  35  000000                                 EXTERN   PD_IDR.w      ; Port D input pin value 
+                                                                ;register
+  36  000000                                 EXTERN   PD_DDR.w      ; Port D data direction 
+                                                                ;register
+  37  000000                                 EXTERN   PD_CR1.w      ; Port D control register 1
+  38  000000                                 EXTERN   PD_CR2.w      ; Port D control register 2
+  39                         ; Flash
+  40                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+STMicroelectronics assembler v4.52   (C)1987-2022   Mon Feb 07 23:41:24 2022
+Page 2  Assembler
+                                               c:\project\stm8\bit_asm\uart_mb.asm
+
+  41  000000                                 EXTERN   FLASH_CR1.w   ; Flash control register 1
+  42  000000                                 EXTERN   FLASH_CR2.w   ; Flash control register 2
+  43  000000                                 EXTERN   FLASH_PUKR.w  ; Flash Program memory 
+                                                                ;unprotection register
+  44  000000                                 EXTERN   FLASH_DUKR.w  ; Data EEPROM unprotection 
+                                                                ;register
+  45  000000                                 EXTERN   FLASH_IAPSR.w  ; Flash in-application 
+                                                                ;programming status register
+  46                         ; External Interrupt Control Register (ITC)
+  47                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  48  000000                                 EXTERN   EXTI_CR1.w    ; External interrupt control 
+                                                                ;register 1
+  49  000000                                 EXTERN   EXTI_CR2.w    ; External interrupt control 
+                                                                ;register 2
+  50  000000                                 EXTERN   EXTI_CR3.w    ; External interrupt control 
+                                                                ;register 3
+  51  000000                                 EXTERN   EXTI_SR1.w    ; External interrupt status 
+                                                                ;register 1
+  52  000000                                 EXTERN   EXTI_SR2.w    ; External interrupt status 
+                                                                ;register 2
+  53  000000                                 EXTERN   EXTI_CONF.w   ; External interrupt port select
+                                                                ; register
+  54                         ; Wait For Event (WFE)
+  55                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  56  000000                                 EXTERN   WFE_CR1.w     ; WFE control register 1
+  57  000000                                 EXTERN   WFE_CR2.w     ; WFE control register 2
+  58                         ; Reset (RST)
+  59                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  60  000000                                 EXTERN   RST_CR.w      ; Reset control register
+  61  000000                                 EXTERN   RST_SR.w      ; Reset status register
+  62                         ; Clock Control (CLK)
+  63                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  64  000000                                 EXTERN   CLK_CKDIVR.w  ; Clock divider register
+  65  000000                                 EXTERN   CLK_PCKENR.w  ; Peripheral clock gating 
+                                                                ;register
+  66  000000                                 EXTERN   CLK_CCOR.w    ; Configurable clock control 
+                                                                ;register
+  67                         ; Independent Watchdog (IWDG)
+  68                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  69  000000                                 EXTERN   IWDG_KR.w     ; IWDG Key Register
+  70  000000                                 EXTERN   IWDG_PR.w     ; IWDG Prescaler Register
+  71  000000                                 EXTERN   IWDG_RLR.w    ; IWDG Reload Register
+  72                         ; Auto Wake-Up (AWU)
+  73                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  74  000000                                 EXTERN   AWU_CSR.w     ; AWU Control/Status Register
+  75  000000                                 EXTERN   AWU_APR.w     ; AWU asynchronous prescaler 
+                                                                ;buffer register
+  76  000000                                 EXTERN   AWU_TBR.w     ; AWU Timebase selection 
+                                                                ;register
+  77                         ; Beeper (BEEP)
+  78                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+STMicroelectronics assembler v4.52   (C)1987-2022   Mon Feb 07 23:41:24 2022
+Page 3  Assembler
+                                               c:\project\stm8\bit_asm\uart_mb.asm
+
+                               ;;;;;;
+  79  000000                                 EXTERN   BEEP_CSR.w    ; BEEP Control/Status Register
+  80                         ; Serial Peripheral Interface (SPI)
+  81                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  82  000000                                 EXTERN   SPI_CR1.w     ; SPI Control Register 1
+  83  000000                                 EXTERN   SPI_CR2.w     ; SPI Control Register 2
+  84  000000                                 EXTERN   SPI_ICR.w     ; SPI Interrupt Control 
+                                                                ;Register
+  85  000000                                 EXTERN   SPI_SR.w      ; SPI Status Register
+  86  000000                                 EXTERN   SPI_DR.w      ; SPI Data Register
+  87                         ; I2C Bus Interface (I2C)
+  88                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  89  000000                                 EXTERN   I2C_CR1.w     ; I2C control register 1
+  90  000000                                 EXTERN   I2C_CR2.w     ; I2C control register 2
+  91  000000                                 EXTERN   I2C_FREQR.w   ; I2C frequency register
+  92  000000                                 EXTERN   I2C_OARL.w    ; I2C Own address register low
+  93  000000                                 EXTERN   I2C_OARH.w    ; I2C Own address register high
+  94  000000                                 EXTERN   I2C_DR.w      ; I2C data register
+  95  000000                                 EXTERN   I2C_SR1.w     ; I2C status register 1
+  96  000000                                 EXTERN   I2C_SR2.w     ; I2C status register 2
+  97  000000                                 EXTERN   I2C_SR3.w     ; I2C status register 3
+  98  000000                                 EXTERN   I2C_ITR.w     ; I2C interrupt control 
+                                                                ;register
+  99  000000                                 EXTERN   I2C_CCRL.w    ; I2C Clock control register 
+                                                                ;low
+ 100  000000                                 EXTERN   I2C_CCRH.w    ; I2C Clock control register 
+                                                                ;high
+ 101  000000                                 EXTERN   I2C_TRISER.w  ; I2C TRISE register
+ 102                         ; Universal synch/asynch receiver transmitter (USART)
+ 103                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+ 104  000000                                 EXTERN   USART_SR.w    ; USART Status Register
+ 105  000000                                 EXTERN   USART_DR.w    ; USART Data Register
+ 106  000000                                 EXTERN   USART_BRR1.w  ; USART Baud Rate Register 1
+ 107  000000                                 EXTERN   USART_BRR2.w  ; USART Baud Rate Register 2
+ 108  000000                                 EXTERN   USART_CR1.w   ; USART Control Register 1
+ 109  000000                                 EXTERN   USART_CR2.w   ; USART Control Register 2
+ 110  000000                                 EXTERN   USART_CR3.w   ; USART Control Register 3
+ 111  000000                                 EXTERN   USART_CR4.w   ; USART Control Register 4
+ 112                         ; 16-Bit Timer 2 (TIM2)
+ 113                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+ 114  000000                                 EXTERN   TIM2_CR1.w    ; TIM2 Control register 1
+ 115  000000                                 EXTERN   TIM2_CR2.w    ; TIM2 Control register 2
+ 116  000000                                 EXTERN   TIM2_SMCR.w   ; TIM2 Slave Mode Control 
+                                                                ;register
+ 117  000000                                 EXTERN   TIM2_ETR.w    ; TIM2 External trigger 
+                                                                ;register
+ 118  000000                                 EXTERN   TIM2_IER.w    ; TIM2 Interrupt enable 
+                                                                ;register
+ 119  000000                                 EXTERN   TIM2_SR1.w    ; TIM2 Status register 1
+ 120  000000                                 EXTERN   TIM2_SR2.w    ; TIM2 Status register 2
+ 121  000000                                 EXTERN   TIM2_EGR.w    ; TIM2 Event Generation 
+                                                                ;register
+ 122  000000                                 EXTERN   TIM2_CCMR1.w  ; TIM2 Capture/Compare mode 
+STMicroelectronics assembler v4.52   (C)1987-2022   Mon Feb 07 23:41:24 2022
+Page 4  Assembler
+                                               c:\project\stm8\bit_asm\uart_mb.asm
+
+                                                                ;register 1
+ 123  000000                                 EXTERN   TIM2_CCMR2.w  ; TIM2 Capture/Compare mode 
+                                                                ;register 2
+ 124  000000                                 EXTERN   TIM2_CCER1.w  ; TIM2 Capture/Compare enable 
+                                                                ;register 1
+ 125  000000                                 EXTERN   TIM2_CNTRH.w  ; Data bits High
+ 126  000000                                 EXTERN   TIM2_CNTRL.w  ; Data bits Low
+ 127  000000                                 EXTERN   TIM2_PSCR.w   ; TIM2 Prescaler register
+ 128  000000                                 EXTERN   TIM2_ARRH.w   ; Data bits High
+ 129  000000                                 EXTERN   TIM2_ARRL.w   ; Data bits Low
+ 130  000000                                 EXTERN   TIM2_CCR1H.w  ; Data bits High
+ 131  000000                                 EXTERN   TIM2_CCR1L.w  ; Data bits Low
+ 132  000000                                 EXTERN   TIM2_CCR2H.w  ; Data bits High
+ 133  000000                                 EXTERN   TIM2_CCR2L.w  ; Data bits Low
+ 134  000000                                 EXTERN   TIM2_BKR.w    ; TIM2 Break register
+ 135  000000                                 EXTERN   TIM2_OISR.w   ; TIM2 Output idle state 
+                                                                ;register
+ 136                         ; 16-Bit Timer 3 (TIM3)
+ 137                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+ 138  000000                                 EXTERN   TIM3_CR1.w    ; TIM3 Control register 1
+ 139  000000                                 EXTERN   TIM3_CR2.w    ; TIM3 Control register 2
+ 140  000000                                 EXTERN   TIM3_SMCR.w   ; TIM3 Slave Mode Control 
+                                                                ;register
+ 141  000000                                 EXTERN   TIM3_ETR.w    ; TIM3 External trigger 
+                                                                ;register
+ 142  000000                                 EXTERN   TIM3_IER.w    ; TIM3 Interrupt enable 
+                                                                ;register
+ 143  000000                                 EXTERN   TIM3_SR1.w    ; TIM3 Status register 1
+ 144  000000                                 EXTERN   TIM3_SR2.w    ; TIM3 Status register 2
+ 145  000000                                 EXTERN   TIM3_EGR.w    ; TIM3 Event Generation 
+                                                                ;register
+ 146  000000                                 EXTERN   TIM3_CCMR1.w  ; TIM3 Capture/Compare mode 
+                                                                ;register 1
+ 147  000000                                 EXTERN   TIM3_CCMR2.w  ; TIM3 Capture/Compare mode 
+                                                                ;register 2
+ 148  000000                                 EXTERN   TIM3_CCER1.w  ; TIM3 Capture/Compare enable 
+                                                                ;register 1
+ 149  000000                                 EXTERN   TIM3_CNTRH.w  ; Data bits High
+ 150  000000                                 EXTERN   TIM3_CNTRL.w  ; Data bits Low
+ 151  000000                                 EXTERN   TIM3_PSCR.w   ; TIM3 Prescaler register
+ 152  000000                                 EXTERN   TIM3_ARRH.w   ; Data bits High
+ 153  000000                                 EXTERN   TIM3_ARRL.w   ; Data bits Low
+ 154  000000                                 EXTERN   TIM3_CCR1H.w  ; Data bits High
+ 155  000000                                 EXTERN   TIM3_CCR1L.w  ; Data bits Low
+ 156  000000                                 EXTERN   TIM3_CCR2H.w  ; Data bits High
+ 157  000000                                 EXTERN   TIM3_CCR2L.w  ; Data bits Low
+ 158  000000                                 EXTERN   TIM3_BKR.w    ; TIM3 Break register
+ 159  000000                                 EXTERN   TIM3_OISR.w   ; TIM3 Output idle state 
+                                                                ;register
+ 160                         ; 8-Bit  Timer 4 (TIM4)
+ 161                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+ 162  000000                                 EXTERN   TIM4_CR1.w    ; TIM4 Control register 1
+ 163  000000                                 EXTERN   TIM4_CR2.w    ; TIM4 Control register 2
+ 164  000000                                 EXTERN   TIM4_SMCR.w   ; TIM4 Slave Mode Control 
+                                                                ;register
+STMicroelectronics assembler v4.52   (C)1987-2022   Mon Feb 07 23:41:24 2022
+Page 5  Assembler
+                                               c:\project\stm8\bit_asm\uart_mb.asm
+
+ 165  000000                                 EXTERN   TIM4_IER.w    ; TIM4 Interrupt enable 
+                                                                ;register
+ 166  000000                                 EXTERN   TIM4_SR1.w    ; TIM4 Status register 1
+ 167  000000                                 EXTERN   TIM4_EGR.w    ; TIM4 Event Generation 
+                                                                ;register
+ 168  000000                                 EXTERN   TIM4_CNTR.w   ; TIM4 Counter
+ 169  000000                                 EXTERN   TIM4_PSCR.w   ; TIM4 Prescaler register
+ 170  000000                                 EXTERN   TIM4_ARR.w    ; TIM4 Auto-reload register
+ 171                         ; Infra Red Interface (IR)
+ 172                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+ 173  000000                                 EXTERN   IR_CR.w       ; Infra-red control register
+ 174                         ; Comparators (CMP)
+ 175                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+ 176  000000                                 EXTERN   COMP_CR.w     ; Comparator control register
+ 177  000000                                 EXTERN   COMP_CSR.w    ; Comparator status register
+ 178  000000                                 EXTERN   COMP_CCS.w    ; Comparator channel selection 
+                                                                ;register
+ 179                         ;  Global configuration register (CFG)
+ 180                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+ 181  000000                                 EXTERN   CFG_GCR.w     ; CFG Global configuration 
+                                                                ;register
+ 182                         ; Interrupt Software Priority Register (ITC)
+ 183                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+ 184  000000                                 EXTERN   ITC_SPR1.w    ; Interrupt Software priority 
+                                                                ;register 1
+ 185  000000                                 EXTERN   ITC_SPR2.w    ; Interrupt Software priority 
+                                                                ;register 2
+ 186  000000                                 EXTERN   ITC_SPR3.w    ; Interrupt Software priority 
+                                                                ;register 3
+ 187  000000                                 EXTERN   ITC_SPR4.w    ; Interrupt Software priority 
+                                                                ;register 4
+ 188  000000                                 EXTERN   ITC_SPR5.w    ; Interrupt Software priority 
+                                                                ;register 5
+ 189  000000                                 EXTERN   ITC_SPR6.w    ; Interrupt Software priority 
+                                                                ;register 6
+ 190  000000                                 EXTERN   ITC_SPR7.w    ; Interrupt Software priority 
+                                                                ;register 7
+ 191  000000                                 EXTERN   ITC_SPR8.w    ; Interrupt Software priority 
+                                                                ;register 8
+ 192  000000                                 #endif                 ; __STM8L101__
+<END_OF_INCLUSION>
+   3                         
+   4  000002                       UartRX    equ      2
+   5  000003                       UartTX    equ      3
+   6  000004                       UartDE    equ      4
+   7                         
+   8                         ; Переменные в озу
+   9  000000                                 extern   RegInput
+  10  000000                                 extern   RegHolding
+  11                         
+  12  000000                                 extern   uartrx_cnt
+  13  000000                                 extern   RxBuff
+  14  000000                                 extern   RxBuff_addr
+  15  000000                                 extern   RxBuff_comm
+STMicroelectronics assembler v4.52   (C)1987-2022   Mon Feb 07 23:41:24 2022
+Page 6  Assembler
+                                               c:\project\stm8\bit_asm\uart_mb.asm
+
+  16  000000                                 extern   RxBuff_a
+  17  000000                                 extern   RxBuff_q
+  18  000000                                 extern   RxBuff_n
+  19                         
+  20  000000                                 extern   uarttx_cnt
+  21  000000                                 extern   TxBuff        
+  22  000000                                 extern   TxBuff_addr
+  23  000000                                 extern   TxBuff_comm
+  24  000000                                 extern   TxBuff_a
+  25  000000                                 extern   TxBuff_n
+  26  000000                                 extern   TxBuff_d
+  27  000000                                 extern   TxBuff_q
+  28                                   
+  29  000000                                 extern   uartrx_cnt_save
+  30                         
+  31  000000                                 extern   crc_hi                
+  32  000000                                 extern   crc_lo
+  33  000000                                 extern   crc_cnt
+  34  000000                                 extern   crc_index     
+  35                                   
+  36  000000                                 extern   temp1_w
+  37  000000                                 extern   temp2_w
+  38  000000                                 extern   temp3_w
+  39  000000                                 extern   temp4_w
+  40  000000                                 extern   temp1_b
+  41  000000                                 extern   temp2_b
+  42  000000                                 extern   temp3_b
+  43  000000                                 extern   temp4_b
+  44                         
+  45                         ; Переменные в eeprom
+  46  000000                                 extern   CRC_Hi_table
+  47  000000                                 extern   CRC_Lo_table
+  48                                   
+  49  000000                                 extern   mb_address
+  50  000000                                 extern   adc_shift
+  51  000000                                 extern   adc_koef
+  52  000000                                 extern   adc_reg_init
+  53                                   
+  54                         ; Внешние функции	
+  55  000000                                 extern   i2c_ads_read
+  56                         
+  57  000000                                 extern   unlock_PROG
+  58  000000                                 extern   unlock_DATA
+  59  000000                                 extern   lock_memory
+  60                                   
+  61  000000                                 extern   delay_10ms
+  62                         
+  63                                   segment  'rom'         
+  64                         .uart_init:  
+  65  000000 X 72150000                      bres     PC_DDR, #UartRX  ; вход RX
+  66  000004 X 72140000                      bset     PC_CR1, #UartRX  ; подтяжка
+  67  000008 X 72160000                      bset     PC_DDR, #UartTX  ; выход TX 
+  68  00000C X 72160000                      bset     PC_CR1, #UartTX
+  69  000010 X 72180000                      bset     PC_DDR, #UartDE  ; выход DE
+  70  000014 X 72180000                      bset     PC_CR1, #UartDE
+  71                         
+  72  000018 X 35680000                      mov      USART_BRR1,#$68  ; настройка UART
+STMicroelectronics assembler v4.52   (C)1987-2022   Mon Feb 07 23:41:24 2022
+Page 7  Assembler
+                                               c:\project\stm8\bit_asm\uart_mb.asm
+
+  73  00001C X 35030000                      mov      USART_BRR2,#$03  
+  74                         
+  75  000020 X 72110000                      bres     USART_CR1,#0  ; CR1_PIEN прерывания на 
+                                                                ;четность отключены
+  76  000024 X 72150000                      bres     USART_CR1,#2  ; CR1_PCEN контроль четности 
+                                                                ;отключен
+  77  000028 X 72190000                      bres     USART_CR1,#4  ; CR1_M 8-битный режим
+  78  00002C X 721B0000                      bres     USART_CR1,#5  ; CR1_UARTD 8-битный режим
+  79                         
+  80  000030 X 72190000                      bres     PC_ODR, #UartDE  ; DE - на прием
+  81  000034 X 72140000                      bset     USART_CR2, #2  ; Вкл прием
+  82  000038 X 72160000                      bset     USART_CR2, #3  ; Вкл передачу
+  83  00003C X 721A0000                      bset     USART_CR2, #5  ; Вкл прерывание
+  84                                                          ;rim
+  85  000040   81                            ret      
+  86                         
+  87                         .parse_modbus:  
+  88                         parse_test_1  
+  89  000041   A608                          ld       a,#$8         ; проверка - длина пакета 8 байт
+                                                                ; ($01$03$00$01$00$01$D5$CA)
+  90  000043 X C00000                        sub      a,uartrx_cnt_save
+  91  000046 R 2701                          jreq     parse_test_2  ; пакет слишком короткий или 
+                                                                ;длинный
+  92  000048   81                            ret      
+  93                                   
+  94                         parse_test_2                     ; проверка 
+  95  000049 X CE0000                        ldw      x,RegHolding
+  96  00004C X 72B00000                      subw     x,uartrx_cnt  ; включает в себя RxBuff_addr
+  97                                                          ;jrne parse_modbus_end_ret	; 
+                                                                ;адрес неверный
+  98  000050 R 2701                          jreq     parse_CRC     ; адрес неверный
+  99  000052   81                            ret      
+ 100                         parse_CRC  
+ 101  000053 R CD0000                        call     RX_CRC
+ 102  000056 X 90CE0000                      ldw      y,RxBuff_n
+ 103  00005A X 72B20000                      subw     y,crc_hi
+ 104                         ;	jrne parse_modbus_end			; КС не корректная	
+ 105                         parse_test_3                     ; проверка номера команды
+ 106  00005E   A604                          ld       a,#$4
+ 107  000060 X C00000                        sub      a,RxBuff_comm
+ 108  000063 R 2716                          jreq     parse_modbus_input_read
+ 109                         parse_test_4                     ; проверка номера команды	
+ 110  000065   A603                          ld       a,#$3
+ 111  000067 X C00000                        sub      a,RxBuff_comm
+ 112  00006A R 271E                          jreq     parse_modbus_holding_read
+ 113                         parse_test_5                     ; проверка номера команды	
+ 114  00006C   A606                          ld       a,#$6         
+ 115  00006E X C00000                        sub      a,RxBuff_comm
+ 116  000071 R 2726                          jreq     parse_modbus_holding_write
+ 117  000073   A601                          ld       a,#$1         ; 
+ 118  000075 X C70000                        ld       TxBuff_n,a
+ 119  000078 R CC0000                        jp       parse_modbus_end  ; команда не поддерживается
+ 120                         
+ 121                         parse_modbus_input_read:         ; проверка диапазона (два 
+                                                                ;регистра)
+ 122                         ;	ldw x,#$0001
+ 123                         ;	subw x,RxBuff_a
+STMicroelectronics assembler v4.52   (C)1987-2022   Mon Feb 07 23:41:24 2022
+Page 8  Assembler
+                                               c:\project\stm8\bit_asm\uart_mb.asm
+
+ 124                         ;	jrmi parse_modbus_end			; начальный адрес за диапазоном
+ 125  00007B X CE0000                        ldw      x,RxBuff_a
+ 126  00007E X 72BB0000                      addw     x,RxBuff_q
+ 127  000082   1D0004                        subw     x,#$0004
+ 128  000085 R 2A1D                          jrpl     parse_modbus_end  ; выбраны регистры за 
+                                                                ;диапазоном
+ 129  000087 R CC0000                        jp       mb_input_read
+ 130                         
+ 131                         parse_modbus_holding_read:       ; проверка диапазона (четыре 
+                                                                ;регистра)
+ 132                         ;	ldw x,#$0001
+ 133                         ;	subw x,RxBuff_a
+ 134                         ;	jrmi parse_modbus_end			; начальный адрес за диапазоном
+ 135  00008A X CE0000                        ldw      x,RxBuff_a
+ 136  00008D X 72BB0000                      addw     x,RxBuff_q
+ 137  000091   1D0005                        subw     x,#$0005
+ 138  000094 R 2A0E                          jrpl     parse_modbus_end  ; выбраны регистры за 
+                                                                ;диапазоном
+ 139  000096 R CC0000                        jp       mb_holding_read
+ 140                         
+ 141                         parse_modbus_holding_write:      ; проверка диапазона (четыре 
+                                                                ;регистра)
+ 142                         ;	ldw x,#$0003
+ 143                         ;	subw x,RxBuff_a
+ 144                         ;	jrmi parse_modbus_end			; начальный адрес за диапазоном
+ 145  000099 X CE0000                        ldw      x,RxBuff_a
+ 146                         ;	addw x,RxBuff_q
+ 147  00009C   1D0004                        subw     x,#$0004
+ 148  00009F R 2A03                          jrpl     parse_modbus_end  ; выбраны регистры за 
+                                                                ;диапазоном
+ 149  0000A1 R CC0000                        jp       mb_holding_write
+ 150                         
+ 151                         parse_modbus_end:                ; формирую ответ на ошибочный 
+                                                                ;запрос
+ 152  0000A4   A603                          ld       a,#$3
+ 153  0000A6 X C70000                        ld       uarttx_cnt,a
+ 154  0000A9 X 5500000000                    mov      TxBuff_addr,RxBuff_addr
+ 155  0000AE X 5500000000                    mov      TxBuff_comm,RxBuff_comm
+ 156  0000B3 X 721E0000                      bset     TxBuff_comm,#$7  ; ответ содержит сообщение об 
+                                                                ;ошибке
+ 157  0000B7   A603                          ld       a,#$3         ; Значение, содержащееся в поле 
+                                                                ;данных запроса, является 
+                                                                ;недопустимой величиной
+ 158  0000B9 X C70000                        ld       TxBuff_n,a    
+ 159  0000BC R CD0000                        call     TX_CRC        
+ 160                                   
+ 161                         parse_modbus_end_ret:  
+ 162  0000BF   81                            ret      
+ 163                         
+ 164                         .mb_input_read:  
+ 165  0000C0 X 5500000000                    mov      TxBuff_addr,RxBuff_addr
+ 166  0000C5 X 5500000000                    mov      TxBuff_comm,RxBuff_comm  
+ 167  0000CA X CE0000                        ldw      x,RxBuff_q
+ 168  0000CD   A602                          ld       a,#2
+ 169  0000CF   42                            mul      X,a
+ 170  0000D0   9F                            ld       a,xl
+ 171  0000D1 X C70000                        ld       TxBuff_n,a    ; записал количество 
+STMicroelectronics assembler v4.52   (C)1987-2022   Mon Feb 07 23:41:24 2022
+Page 9  Assembler
+                                               c:\project\stm8\bit_asm\uart_mb.asm
+
+                                                                ;передаваемых байт из регистров
+ 172  0000D4 X CE0000                        ldw      x,RxBuff_a
+ 173  0000D7   A602                          ld       a,#2
+ 174  0000D9   42                            mul      X,a
+ 175  0000DA X 1C0000                        addw     x,#RegInput   ; смещение
+ 176  0000DD   9F                            ld       a,xl          ; 
+ 177  0000DE X CB0000                        add      a,TxBuff_n
+ 178  0000E1 X C70000                        ld       temp1_b,a     
+ 179  0000E4   905F                          clrw     y
+ 180                         modbus_input_read_data_copy  
+ 181  0000E6   9F                            ld       a,xl
+ 182  0000E7 X C10000                        cp       a,temp1_b                ; 
+ 183  0000EA R 270D                          jreq     modbus_input_read_CRC
+ 184  0000EC X D60000                        ld       a,(RegInput,x)
+ 185  0000EF X 90D70000                      ld       (TxBuff_d,y),a  
+ 186  0000F3   905C                          incw     y
+ 187  0000F5   5C                            incw     x
+ 188  0000F6 R CC0000                        jp       modbus_input_read_data_copy  
+ 189                         modbus_input_read_CRC  
+ 190  0000F9   909F                          ld       a,yl
+ 191  0000FB   AB03                          add      a,#3
+ 192  0000FD X C70000                        ld       uarttx_cnt,a
+ 193  000100 R CD0000                        call     TX_CRC
+ 194  000103   81                            ret      
+ 195                                   
+ 196                         .mb_holding_read:  
+ 197  000104 X 5500000000                    mov      TxBuff_addr,RxBuff_addr
+ 198  000109 X 5500000000                    mov      TxBuff_comm,RxBuff_comm  
+ 199  00010E X CE0000                        ldw      x,RxBuff_q
+ 200  000111   A602                          ld       a,#2
+ 201  000113   42                            mul      X,a
+ 202  000114   9F                            ld       a,xl
+ 203  000115 X C70000                        ld       TxBuff_n,a    ; записал количество 
+                                                                ;передаваемых байт из регистров
+ 204  000118 X CE0000                        ldw      x,RxBuff_a
+ 205  00011B   A602                          ld       a,#2
+ 206  00011D   42                            mul      X,a
+ 207  00011E X 1C0000                        addw     x,#RegHolding  ; смещение
+ 208  000121   9F                            ld       a,xl          ; 
+ 209  000122 X CB0000                        add      a,TxBuff_n
+ 210  000125 X C70000                        ld       temp1_b,a     
+ 211  000128   905F                          clrw     y
+ 212                         modbus_holding_read_data_copy  
+ 213  00012A   9F                            ld       a,xl
+ 214  00012B X C10000                        cp       a,temp1_b                ; 
+ 215  00012E R 270D                          jreq     modbus_holding_read_CRC
+ 216  000130 X D60000                        ld       a,(RegInput,x)
+ 217  000133 X 90D70000                      ld       (TxBuff_d,y),a  
+ 218  000137   905C                          incw     y
+ 219  000139   5C                            incw     x
+ 220  00013A R CC0000                        jp       modbus_holding_read_data_copy  
+ 221                         modbus_holding_read_CRC  
+ 222  00013D   909F                          ld       a,yl
+ 223  00013F   AB03                          add      a,#3
+ 224  000141 X C70000                        ld       uarttx_cnt,a
+ 225  000144 R CD0000                        call     TX_CRC
+ 226  000147   81                            ret      
+STMicroelectronics assembler v4.52   (C)1987-2022   Mon Feb 07 23:41:24 2022
+Page 10  Assembler
+                                               c:\project\stm8\bit_asm\uart_mb.asm
+
+ 227                         
+ 228                         
+ 229                         .mb_holding_write:               ; запись данных в еепром
+ 230  000148 X CD0000                        call     unlock_PROG
+ 231                                                          ;lock_memory
+ 232  00014B X 90CE0000                      ldw      y,RxBuff_a
+ 233  00014F   905A                          decw     y
+ 234  000151 R 2B0F                          jrmi     modbus_holding_write_0
+ 235  000153   905A                          decw     y
+ 236  000155 R 2B1A                          jrmi     modbus_holding_write_1
+ 237  000157   905A                          decw     y
+ 238  000159 R 2B27                          jrmi     modbus_holding_write_2
+ 239  00015B   905A                          decw     y
+ 240  00015D R 2B34                          jrmi     modbus_holding_write_3
+ 241  00015F R CC0000                        jp       parse_modbus_end
+ 242                         modbus_holding_write_0:  
+ 243  000162 X 90CE0000                      ldw      y,RxBuff_q
+ 244  000166 X 90CF0000                      ldw      RegHolding,y
+ 245  00016A X 90CF0000                      ldw      mb_address,y
+ 246  00016E R CC0000                        jp       modbus_holding_write_OK
+ 247                         modbus_holding_write_1:  
+ 248  000171 X 90CE0000                      ldw      y,RxBuff_q
+ 249  000175   AE0002                        ldw      x,#2
+ 250  000178 X DF0000                        ldw      (RegHolding,x),y
+ 251  00017B X 90CF0000                      ldw      adc_shift,y
+ 252  00017F R CC0000                        jp       modbus_holding_write_OK
+ 253                         modbus_holding_write_2:  
+ 254  000182 X 90CE0000                      ldw      y,RxBuff_q
+ 255  000186   AE0004                        ldw      x,#4
+ 256  000189 X DF0000                        ldw      (RegHolding,x),y
+ 257  00018C X 90CF0000                      ldw      adc_koef,y
+ 258  000190 R CC0000                        jp       modbus_holding_write_OK
+ 259                         modbus_holding_write_3:  
+ 260  000193 X 90CE0000                      ldw      y,RxBuff_q
+ 261  000197   AE0006                        ldw      x,#6
+ 262  00019A X DF0000                        ldw      (RegHolding,x),y
+ 263  00019D X 90CF0000                      ldw      adc_reg_init,y
+ 264  0001A1 R CC0000                        jp       modbus_holding_write_OK
+ 265                         
+ 266                         modbus_holding_write_OK:  
+ 267  0001A4 X 5500000000                    mov      TxBuff_addr,RxBuff_addr
+ 268  0001A9 X 5500000000                    mov      TxBuff_comm,RxBuff_comm
+ 269  0001AE X 5500000000                    mov      TxBuff_a,RxBuff_a
+ 270  0001B3 X 90CE0000                      ldw      y,RxBuff_a
+ 271  0001B7 X 90CF0000                      ldw      TxBuff_a,y
+ 272  0001BB X 90CE0000                      ldw      y,RxBuff_q
+ 273  0001BF X 90CF0000                      ldw      TxBuff_q,y
+ 274                         modbus_holding_write_CRC  
+ 275  0001C3   A606                          ld       a,#6
+ 276  0001C5 X C70000                        ld       uarttx_cnt,a
+ 277  0001C8 R CD0000                        call     TX_CRC
+ 278  0001CB X CD0000                        call     delay_10ms
+ 279  0001CE X CD0000                        call     lock_memory
+ 280  0001D1   81                            ret      
+ 281                                   
+ 282                         .RX_CRC:  
+ 283  0001D2 X 5500FF0000                    mov      crc_lo,$FF    ;первоначально загружаем 0xFF в 
+STMicroelectronics assembler v4.52   (C)1987-2022   Mon Feb 07 23:41:24 2022
+Page 11  Assembler
+                                               c:\project\stm8\bit_asm\uart_mb.asm
+
+                                                                ;оба регистра
+ 284  0001D7 X 5500FF0000                    mov      crc_hi,$FF
+ 285  0001DC X 35000000                      mov      crc_cnt, #0   ; начинаю с 0-го байта
+ 286                                                          ; тест на 0 uartrx_cnt_save
+ 287  0001E0 X 725D0000                      tnz      uartrx_cnt_save
+ 288  0001E4 R 2734                          jreq     RX_CRC_cycle_end
+ 289  0001E6 X 725A0000                      dec      uartrx_cnt_save
+ 290  0001EA X 725A0000                      dec      uartrx_cnt_save
+ 291                         RX_CRC_cycle  
+ 292  0001EE   AE0000                        ldw      x, #0         ; надо обнулить оба байта 
+                                                                ;регистра
+ 293  0001F1 X C60000                        ld       a, crc_cnt
+ 294  0001F4   97                            ld       xl, a
+ 295  0001F5 X D60000                        ld       a,(RxBuff,x)  ; взял байт из сообщения
+ 296  0001F8 X C80000                        xor      a,crc_hi
+ 297  0001FB X C70000                        ld       crc_index,a   ; получил индекс-смещения в 
+                                                                ;таблицах
+ 298  0001FE   97                            ld       xl, a
+ 299  0001FF X D60000                        ld       a,(CRC_Hi_table,x)  ; взял байт из таблицы
+ 300  000202 X C80000                        xor      a,crc_lo
+ 301  000205 X C70000                        ld       crc_hi,a
+ 302  000208 X D60000                        ld       a,(CRC_Lo_table,x)  ; взял байт из таблицы
+ 303  00020B X C70000                        ld       crc_lo,a
+ 304  00020E X 725C0000                      inc      crc_cnt
+ 305  000212 X C60000                        ld       a,uartrx_cnt_save  ; здесь буду тестировать на 
+                                                                ;конец пакета
+ 306  000215 X C10000                        cp       a,crc_cnt
+ 307  000218 R 26D4                          jrne     RX_CRC_cycle
+ 308                         RX_CRC_cycle_end  
+ 309  00021A   81                            ret      
+ 310                                   
+ 311                         TX_CRC:   
+ 312  00021B X 35FF0000                      mov      crc_lo,#$FF   ;первоначально загружаем 0xFF в 
+                                                                ;оба регистра
+ 313  00021F X 35FF0000                      mov      crc_hi,#$FF
+ 314  000223 X 35000000                      mov      crc_cnt,#0    ; начинаю с 0-го байта
+ 315                         TX_CRC_cycle:  
+ 316  000227   AE0000                        ldw      x,#0          ; надо обнулить оба байта 
+                                                                ;регистра
+ 317  00022A X C60000                        ld       a,crc_cnt
+ 318  00022D   97                            ld       xl,a
+ 319  00022E X D60000                        ld       a,(TxBuff,x)  ; взял байт из сообщения
+ 320  000231 X C80000                        xor      a,crc_hi
+ 321  000234 X C70000                        ld       crc_index,a   ; получил индекс-смещения в 
+                                                                ;таблицах
+ 322  000237   97                            ld       xl,a
+ 323  000238 X D60000                        ld       a,(CRC_Hi_table,x)  ; взял байт из таблицы
+ 324  00023B X C80000                        xor      a,crc_lo
+ 325  00023E X C70000                        ld       crc_hi,a
+ 326  000241 X D60000                        ld       a,(CRC_Lo_table,x)  ; взял байт из таблицы
+ 327  000244 X C70000                        ld       crc_lo,a
+ 328  000247 X 725C0000                      inc      crc_cnt
+ 329  00024B X C60000                        ld       a,uarttx_cnt  ; здесь буду тестировать на 
+                                                                ;конец пакета
+ 330  00024E X C10000                        cp       a,crc_cnt
+ 331  000251 R 26D4                          jrne     TX_CRC_cycle
+ 332                         TX_CRC_cycle_end:  
+STMicroelectronics assembler v4.52   (C)1987-2022   Mon Feb 07 23:41:24 2022
+Page 12  Assembler
+                                               c:\project\stm8\bit_asm\uart_mb.asm
+
+ 333  000253 X C60000                        ld       a, crc_cnt
+ 334  000256   97                            ld       xl,a
+ 335  000257 X C60000                        ld       a,crc_hi
+ 336  00025A X D70000                        ld       (TxBuff,x),a
+ 337  00025D   5C                            incw     x
+ 338  00025E X C60000                        ld       a,crc_lo
+ 339  000261 X D70000                        ld       (TxBuff,x),a  ; пакет сформирован
+ 340  000264   5C                            incw     x
+ 341  000265 X CF0000                        ldw      temp1_w,x
+ 342  000268 R CD0000                        call     uart_mb_write
+ 343  00026B   81                            ret      
+ 344                         
+ 345                         .uart_mb_write:  
+ 346                                                          ;bres USART_CR2, #3				; Выкл 
+                                                                ;передачу
+ 347  00026C X 721B0000                      bres     USART_CR2, #5  ; прерывание выкл
+ 348  000270 X 72180000                      bset     PC_ODR, #UartDE  ; DE - на прием
+ 349  000274   AE0000                        ldw      x, #0         ; надо обнулить оба байта 
+                                                                ;регистра
+ 350                         next:     
+ 351  000277 X C30000                        cpw      x,temp1_w
+ 352  00027A R 270F                          jreq     end_tx        
+ 353  00027C X D60000                        ld       a,(TxBuff,x)  ; взял байт из сообщения
+ 354                         wait_tx:  
+ 355  00027F X 720F0000FB                    btjf     USART_SR, #7, wait_tx  ; wait until TX buffer is empty
+ 356  000284 X C70000                        ld       USART_DR, a   ; print out the character
+ 357                                                          ;bset USART_CR2, #3				; Вкл 
+                                                                ;передачу
+ 358  000287   5C                            incw     x             ; increment the character 
+                                                                ;address
+ 359  000288 R CC0000                        jp       next          ; process next character
+ 360                         end_tx:   
+ 361  00028B X 720D0000FB                    btjf     USART_SR, #6, end_tx  ; wait for the transmission to 
+                                                                ;complete	
+ 362  000290 X 72190000                      bres     PC_ODR, #UartDE  ; DE - на прием
+ 363                                                          ;bres USART_CR2, #3				; Выкл 
+                                                                ;передачу
+ 364  000294 X 721A0000                      bset     USART_CR2, #5  ; Вкл прерывание прима
+ 365  000298   81                            ret      
+ 366                         
+ 367                         
+ 368  000299                                 end      
+STMicroelectronics assembler v4.52   (C)1987-2022   Mon Feb 07 23:41:24 2022
+Page 13  Assembler
+                                               c:\project\stm8\bit_asm\uart_mb.asm
+
+Symbol Name                       Value     Call       Type  Scope      Rel.  Line  Privacy  Segment   Size  Bytes File
+
+AWU_CSR                           ????????         no  WORD  External   rel     74  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+AWU_APR                           ????????         no  WORD  External   rel     75  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+AWU_TBR                           ????????         no  WORD  External   rel     76  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+
+BEEP_CSR                          ????????         no  WORD  External   rel     79  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+
+CLK_CKDIVR                        ????????         no  WORD  External   rel     64  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+CLK_PCKENR                        ????????         no  WORD  External   rel     65  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+CLK_CCOR                          ????????         no  WORD  External   rel     66  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+COMP_CR                           ????????         no  WORD  External   rel    176  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+COMP_CSR                          ????????         no  WORD  External   rel    177  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+COMP_CCS                          ????????         no  WORD  External   rel    178  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+CFG_GCR                           ????????         no  WORD  External   rel    181  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+CRC_Hi_table                      ????????         no  WORD  External   rel     46  private  text         0     0  -
+CRC_Lo_table                      ????????         no  WORD  External   rel     47  private  text         0     0  -
+
+EXTI_CR1                          ????????         no  WORD  External   rel     48  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+EXTI_CR2                          ????????         no  WORD  External   rel     49  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+EXTI_CR3                          ????????         no  WORD  External   rel     50  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+EXTI_SR1                          ????????         no  WORD  External   rel     51  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+EXTI_SR2                          ????????         no  WORD  External   rel     52  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+EXTI_CONF                         ????????         no  WORD  External   rel     53  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+
+FLASH_CR1                         ????????         no  WORD  External   rel     41  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+FLASH_CR2                         ????????         no  WORD  External   rel     42  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+FLASH_PUKR                        ????????         no  WORD  External   rel     43  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+FLASH_DUKR                        ????????         no  WORD  External   rel     44  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+FLASH_IAPSR                       ????????         no  WORD  External   rel     45  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+
+IWDG_KR                           ????????         no  WORD  External   rel     69  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+IWDG_PR                           ????????         no  WORD  External   rel     70  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+IWDG_RLR                          ????????         no  WORD  External   rel     71  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+I2C_CR1                           ????????         no  WORD  External   rel     89  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+I2C_CR2                           ????????         no  WORD  External   rel     90  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+I2C_FREQR                         ????????         no  WORD  External   rel     91  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+I2C_OARL                          ????????         no  WORD  External   rel     92  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+I2C_OARH                          ????????         no  WORD  External   rel     93  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+I2C_DR                            ????????         no  WORD  External   rel     94  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+I2C_SR1                           ????????         no  WORD  External   rel     95  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+I2C_SR2                           ????????         no  WORD  External   rel     96  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+I2C_SR3                           ????????         no  WORD  External   rel     97  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+I2C_ITR                           ????????         no  WORD  External   rel     98  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+I2C_CCRL                          ????????         no  WORD  External   rel     99  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+I2C_CCRH                          ????????         no  WORD  External   rel    100  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+I2C_TRISER                        ????????         no  WORD  External   rel    101  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+IR_CR                             ????????         no  WORD  External   rel    173  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+ITC_SPR1                          ????????         no  WORD  External   rel    184  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+ITC_SPR2                          ????????         no  WORD  External   rel    185  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+ITC_SPR3                          ????????         no  WORD  External   rel    186  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+ITC_SPR4                          ????????         no  WORD  External   rel    187  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+ITC_SPR5                          ????????         no  WORD  External   rel    188  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+ITC_SPR6                          ????????         no  WORD  External   rel    189  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+ITC_SPR7                          ????????         no  WORD  External   rel    190  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+ITC_SPR8                          ????????         no  WORD  External   rel    191  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+
+STMicroelectronics assembler v4.52   (C)1987-2022   Mon Feb 07 23:41:24 2022
+Page 14  Assembler
+                                               c:\project\stm8\bit_asm\uart_mb.asm
+
+PA_ODR                            ????????         no  WORD  External   rel     13  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PA_IDR                            ????????         no  WORD  External   rel     14  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PA_DDR                            ????????         no  WORD  External   rel     15  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PA_CR1                            ????????         no  WORD  External   rel     16  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PA_CR2                            ????????         no  WORD  External   rel     17  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PB_ODR                            ????????         no  WORD  External   rel     20  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PB_IDR                            ????????         no  WORD  External   rel     21  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PB_DDR                            ????????         no  WORD  External   rel     22  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PB_CR1                            ????????         no  WORD  External   rel     23  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PB_CR2                            ????????         no  WORD  External   rel     24  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PC_ODR                            ????????         no  WORD  External   rel     27  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PC_IDR                            ????????         no  WORD  External   rel     28  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PC_DDR                            ????????         no  WORD  External   rel     29  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PC_CR1                            ????????         no  WORD  External   rel     30  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PC_CR2                            ????????         no  WORD  External   rel     31  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PD_ODR                            ????????         no  WORD  External   rel     34  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PD_IDR                            ????????         no  WORD  External   rel     35  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PD_DDR                            ????????         no  WORD  External   rel     36  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PD_CR1                            ????????         no  WORD  External   rel     37  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PD_CR2                            ????????         no  WORD  External   rel     38  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+
+RST_CR                            ????????         no  WORD  External   rel     60  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+RST_SR                            ????????         no  WORD  External   rel     61  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+RegInput                          ????????         no  WORD  External   rel      9  private  text         0     0  -
+RegHolding                        ????????         no  WORD  External   rel     10  private  text         0     0  -
+RxBuff                            ????????         no  WORD  External   rel     13  private  text         0     0  -
+RxBuff_addr                       ????????         no  WORD  External   rel     14  private  text         0     0  -
+RxBuff_comm                       ????????         no  WORD  External   rel     15  private  text         0     0  -
+RxBuff_a                          ????????         no  WORD  External   rel     16  private  text         0     0  -
+RxBuff_q                          ????????         no  WORD  External   rel     17  private  text         0     0  -
+RxBuff_n                          ????????         no  WORD  External   rel     18  private  text         0     0  -
+RX_CRC                                01D2         no  WORD  Internal   rel    282  public   text        28     0  -
+RX_CRC_cycle                          01EE         no  WORD  Internal   rel    291  private  text        44     0  -
+RX_CRC_cycle_end                      021A         no  WORD  Internal   rel    308  private  text         1     0  -
+
+SPI_CR1                           ????????         no  WORD  External   rel     82  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+SPI_CR2                           ????????         no  WORD  External   rel     83  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+SPI_ICR                           ????????         no  WORD  External   rel     84  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+SPI_SR                            ????????         no  WORD  External   rel     85  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+SPI_DR                            ????????         no  WORD  External   rel     86  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+
+TIM2_CR1                          ????????         no  WORD  External   rel    114  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_CR2                          ????????         no  WORD  External   rel    115  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_SMCR                         ????????         no  WORD  External   rel    116  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_ETR                          ????????         no  WORD  External   rel    117  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_IER                          ????????         no  WORD  External   rel    118  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_SR1                          ????????         no  WORD  External   rel    119  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_SR2                          ????????         no  WORD  External   rel    120  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_EGR                          ????????         no  WORD  External   rel    121  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_CCMR1                        ????????         no  WORD  External   rel    122  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_CCMR2                        ????????         no  WORD  External   rel    123  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_CCER1                        ????????         no  WORD  External   rel    124  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_CNTRH                        ????????         no  WORD  External   rel    125  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_CNTRL                        ????????         no  WORD  External   rel    126  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_PSCR                         ????????         no  WORD  External   rel    127  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_ARRH                         ????????         no  WORD  External   rel    128  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_ARRL                         ????????         no  WORD  External   rel    129  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+STMicroelectronics assembler v4.52   (C)1987-2022   Mon Feb 07 23:41:24 2022
+Page 15  Assembler
+                                               c:\project\stm8\bit_asm\uart_mb.asm
+
+TIM2_CCR1H                        ????????         no  WORD  External   rel    130  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_CCR1L                        ????????         no  WORD  External   rel    131  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_CCR2H                        ????????         no  WORD  External   rel    132  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_CCR2L                        ????????         no  WORD  External   rel    133  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_BKR                          ????????         no  WORD  External   rel    134  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_OISR                         ????????         no  WORD  External   rel    135  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_CR1                          ????????         no  WORD  External   rel    138  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_CR2                          ????????         no  WORD  External   rel    139  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_SMCR                         ????????         no  WORD  External   rel    140  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_ETR                          ????????         no  WORD  External   rel    141  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_IER                          ????????         no  WORD  External   rel    142  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_SR1                          ????????         no  WORD  External   rel    143  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_SR2                          ????????         no  WORD  External   rel    144  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_EGR                          ????????         no  WORD  External   rel    145  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_CCMR1                        ????????         no  WORD  External   rel    146  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_CCMR2                        ????????         no  WORD  External   rel    147  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_CCER1                        ????????         no  WORD  External   rel    148  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_CNTRH                        ????????         no  WORD  External   rel    149  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_CNTRL                        ????????         no  WORD  External   rel    150  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_PSCR                         ????????         no  WORD  External   rel    151  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_ARRH                         ????????         no  WORD  External   rel    152  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_ARRL                         ????????         no  WORD  External   rel    153  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_CCR1H                        ????????         no  WORD  External   rel    154  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_CCR1L                        ????????         no  WORD  External   rel    155  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_CCR2H                        ????????         no  WORD  External   rel    156  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_CCR2L                        ????????         no  WORD  External   rel    157  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_BKR                          ????????         no  WORD  External   rel    158  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_OISR                         ????????         no  WORD  External   rel    159  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM4_CR1                          ????????         no  WORD  External   rel    162  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM4_CR2                          ????????         no  WORD  External   rel    163  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM4_SMCR                         ????????         no  WORD  External   rel    164  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM4_IER                          ????????         no  WORD  External   rel    165  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM4_SR1                          ????????         no  WORD  External   rel    166  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM4_EGR                          ????????         no  WORD  External   rel    167  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM4_CNTR                         ????????         no  WORD  External   rel    168  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM4_PSCR                         ????????         no  WORD  External   rel    169  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM4_ARR                          ????????         no  WORD  External   rel    170  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TxBuff                            ????????         no  WORD  External   rel     21  private  text         0     0  -
+TxBuff_addr                       ????????         no  WORD  External   rel     22  private  text         0     0  -
+TxBuff_comm                       ????????         no  WORD  External   rel     23  private  text         0     0  -
+TxBuff_a                          ????????         no  WORD  External   rel     24  private  text         0     0  -
+TxBuff_n                          ????????         no  WORD  External   rel     25  private  text         0     0  -
+TxBuff_d                          ????????         no  WORD  External   rel     26  private  text         0     0  -
+TxBuff_q                          ????????         no  WORD  External   rel     27  private  text         0     0  -
+TX_CRC                                021B         no  WORD  Internal   rel    311  private  text        12     0  -
+TX_CRC_cycle                          0227         no  WORD  Internal   rel    315  private  text        44     0  -
+TX_CRC_cycle_end                      0253         no  WORD  Internal   rel    332  private  text        25     0  -
+
+USART_SR                          ????????         no  WORD  External   rel    104  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+USART_DR                          ????????         no  WORD  External   rel    105  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+USART_BRR1                        ????????         no  WORD  External   rel    106  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+USART_BRR2                        ????????         no  WORD  External   rel    107  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+USART_CR1                         ????????         no  WORD  External   rel    108  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+USART_CR2                         ????????         no  WORD  External   rel    109  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+USART_CR3                         ????????         no  WORD  External   rel    110  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+USART_CR4                         ????????         no  WORD  External   rel    111  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+UartRX                                0002         no  WORD  Internal   ABS      4  private  text         0     0  -
+STMicroelectronics assembler v4.52   (C)1987-2022   Mon Feb 07 23:41:24 2022
+Page 16  Assembler
+                                               c:\project\stm8\bit_asm\uart_mb.asm
+
+UartTX                                0003         no  WORD  Internal   ABS      5  private  text         0     0  -
+UartDE                                0004         no  WORD  Internal   ABS      6  private  text         0     0  -
+
+WFE_CR1                           ????????         no  WORD  External   rel     56  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+WFE_CR2                           ????????         no  WORD  External   rel     57  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+
+adc_shift                         ????????         no  WORD  External   rel     50  private  text         0     0  -
+adc_koef                          ????????         no  WORD  External   rel     51  private  text         0     0  -
+adc_reg_init                      ????????         no  WORD  External   rel     52  private  text         0     0  -
+
+crc_hi                            ????????         no  WORD  External   rel     31  private  text         0     0  -
+crc_lo                            ????????         no  WORD  External   rel     32  private  text         0     0  -
+crc_cnt                           ????????         no  WORD  External   rel     33  private  text         0     0  -
+crc_index                         ????????         no  WORD  External   rel     34  private  text         0     0  -
+
+delay_10ms                        ????????         no  WORD  External   rel     61  private  text         0     0  -
+
+end_tx                                028B         no  WORD  Internal   rel    360  private  text        14     0  -
+
+i2c_ads_read                      ????????         no  WORD  External   rel     55  private  text         0     0  -
+
+lock_memory                       ????????         no  WORD  External   rel     59  private  text         0     0  -
+
+mb_address                        ????????         no  WORD  External   rel     49  private  text         0     0  -
+mb_input_read                         00C0         no  WORD  Internal   rel    164  public   text        38     0  -
+modbus_input_read_data_copy           00E6         no  WORD  Internal   rel    180  private  text        19     0  -
+modbus_input_read_CRC                 00F9         no  WORD  Internal   rel    189  private  text        11     0  -
+mb_holding_read                       0104         no  WORD  Internal   rel    196  public   text        38     0  -
+modbus_holding_read_data_copy         012A         no  WORD  Internal   rel    212  private  text        19     0  -
+modbus_holding_read_CRC               013D         no  WORD  Internal   rel    221  private  text        11     0  -
+mb_holding_write                      0148         no  WORD  Internal   rel    229  public   text        26     0  -
+modbus_holding_write_0                0162         no  WORD  Internal   rel    242  private  text        15     0  -
+modbus_holding_write_1                0171         no  WORD  Internal   rel    247  private  text        17     0  -
+modbus_holding_write_2                0182         no  WORD  Internal   rel    253  private  text        17     0  -
+modbus_holding_write_3                0193         no  WORD  Internal   rel    259  private  text        17     0  -
+modbus_holding_write_OK               01A4         no  WORD  Internal   rel    266  private  text        31     0  -
+modbus_holding_write_CRC              01C3         no  WORD  Internal   rel    274  private  text        15     0  -
+
+next                                  0277         no  WORD  Internal   rel    350  private  text         8     0  -
+
+parse_modbus                          0041         no  WORD  Internal   rel     87  public   text         8     0  -
+parse_test_1                          0041         no  WORD  Internal   rel     88  private  text         8     0  -
+parse_test_2                          0049         no  WORD  Internal   rel     94  private  text        10     0  -
+parse_CRC                             0053         no  WORD  Internal   rel    100  private  text        11     0  -
+parse_test_3                          005E         no  WORD  Internal   rel    105  private  text         7     0  -
+parse_test_4                          0065         no  WORD  Internal   rel    109  private  text         7     0  -
+parse_test_5                          006C         no  WORD  Internal   rel    113  private  text        15     0  -
+parse_modbus_input_read               007B         no  WORD  Internal   rel    121  private  text        15     0  -
+parse_modbus_holding_read             008A         no  WORD  Internal   rel    131  private  text        15     0  -
+parse_modbus_holding_write            0099         no  WORD  Internal   rel    141  private  text        11     0  -
+parse_modbus_end                      00A4         no  WORD  Internal   rel    151  private  text        27     0  -
+parse_modbus_end_ret                  00BF         no  WORD  Internal   rel    161  private  text         1     0  -
+
+temp1_w                           ????????         no  WORD  External   rel     36  private  text         0     0  -
+temp2_w                           ????????         no  WORD  External   rel     37  private  text         0     0  -
+temp3_w                           ????????         no  WORD  External   rel     38  private  text         0     0  -
+temp4_w                           ????????         no  WORD  External   rel     39  private  text         0     0  -
+STMicroelectronics assembler v4.52   (C)1987-2022   Mon Feb 07 23:41:24 2022
+Page 17  Assembler
+                                               c:\project\stm8\bit_asm\uart_mb.asm
+
+temp1_b                           ????????         no  WORD  External   rel     40  private  text         0     0  -
+temp2_b                           ????????         no  WORD  External   rel     41  private  text         0     0  -
+temp3_b                           ????????         no  WORD  External   rel     42  private  text         0     0  -
+temp4_b                           ????????         no  WORD  External   rel     43  private  text         0     0  -
+
+uartrx_cnt                        ????????         no  WORD  External   rel     12  private  text         0     0  -
+uarttx_cnt                        ????????         no  WORD  External   rel     20  private  text         0     0  -
+uartrx_cnt_save                   ????????         no  WORD  External   rel     29  private  text         0     0  -
+unlock_PROG                       ????????         no  WORD  External   rel     57  private  text         0     0  -
+unlock_DATA                       ????????         no  WORD  External   rel     58  private  text         0     0  -
+uart_init                             0000         no  WORD  Internal   rel     64  public   text        65     0  -
+uart_mb_write                         026C         no  WORD  Internal   rel    345  public   text        11     0  -
+
+wait_tx                               027F         no  WORD  Internal   rel    354  private  text        12     0  -
+
+
+217 labels
+No errors on assembly of 'c:\project\stm8\bit_asm\uart_mb.asm'

@@ -1,0 +1,751 @@
+STMicroelectronics list file postprocessor v1.01   (C)2009-2022   Tue Feb 08 00:03:06 2022
+Page 1  Assembler
+                                               c:\project\stm8\bit_asm\main.asm
+
+   1                         stm8/     
+   0  000000                                 #include "STM8L101.inc"
+   1                         ; STM8L101.inc
+   2                         ; Copyright (c) 2003-2017 STMicroelectronics
+   3                         
+   4  000000 U                               #ifdef   __STM8L101__
+   7  000000                                 #define  __STM8L101__ 1
+   8                         
+   9                         ; STM8L101
+  10                         
+  11                         ; Port A
+  12                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  13  000000                                 EXTERN   PA_ODR.w      ; Port A data output latch 
+                                                                ;register
+  14  000000                                 EXTERN   PA_IDR.w      ; Port A input pin value 
+                                                                ;register
+  15  000000                                 EXTERN   PA_DDR.w      ; Port A data direction 
+                                                                ;register
+  16  000000                                 EXTERN   PA_CR1.w      ; Port A control register 1
+  17  000000                                 EXTERN   PA_CR2.w      ; Port A control register 2
+  18                         ; Port B
+  19                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  20  000000                                 EXTERN   PB_ODR.w      ; Port B data output latch 
+                                                                ;register
+  21  000000                                 EXTERN   PB_IDR.w      ; Port B input pin value 
+                                                                ;register
+  22  000000                                 EXTERN   PB_DDR.w      ; Port B data direction 
+                                                                ;register
+  23  000000                                 EXTERN   PB_CR1.w      ; Port B control register 1
+  24  000000                                 EXTERN   PB_CR2.w      ; Port B control register 2
+  25                         ; Port C
+  26                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  27  000000                                 EXTERN   PC_ODR.w      ; Port C data output latch 
+                                                                ;register
+  28  000000                                 EXTERN   PC_IDR.w      ; Port C input pin value 
+                                                                ;register
+  29  000000                                 EXTERN   PC_DDR.w      ; Port C data direction 
+                                                                ;register
+  30  000000                                 EXTERN   PC_CR1.w      ; Port C control register 1
+  31  000000                                 EXTERN   PC_CR2.w      ; Port C control register 2
+  32                         ; Port D
+  33                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  34  000000                                 EXTERN   PD_ODR.w      ; Port D data output latch 
+                                                                ;register
+  35  000000                                 EXTERN   PD_IDR.w      ; Port D input pin value 
+                                                                ;register
+  36  000000                                 EXTERN   PD_DDR.w      ; Port D data direction 
+                                                                ;register
+  37  000000                                 EXTERN   PD_CR1.w      ; Port D control register 1
+  38  000000                                 EXTERN   PD_CR2.w      ; Port D control register 2
+  39                         ; Flash
+  40                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+STMicroelectronics list file postprocessor v1.01   (C)2009-2022   Tue Feb 08 00:03:06 2022
+Page 2  Assembler
+                                               c:\project\stm8\bit_asm\main.asm
+
+  41  000000                                 EXTERN   FLASH_CR1.w   ; Flash control register 1
+  42  000000                                 EXTERN   FLASH_CR2.w   ; Flash control register 2
+  43  000000                                 EXTERN   FLASH_PUKR.w  ; Flash Program memory 
+                                                                ;unprotection register
+  44  000000                                 EXTERN   FLASH_DUKR.w  ; Data EEPROM unprotection 
+                                                                ;register
+  45  000000                                 EXTERN   FLASH_IAPSR.w  ; Flash in-application 
+                                                                ;programming status register
+  46                         ; External Interrupt Control Register (ITC)
+  47                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  48  000000                                 EXTERN   EXTI_CR1.w    ; External interrupt control 
+                                                                ;register 1
+  49  000000                                 EXTERN   EXTI_CR2.w    ; External interrupt control 
+                                                                ;register 2
+  50  000000                                 EXTERN   EXTI_CR3.w    ; External interrupt control 
+                                                                ;register 3
+  51  000000                                 EXTERN   EXTI_SR1.w    ; External interrupt status 
+                                                                ;register 1
+  52  000000                                 EXTERN   EXTI_SR2.w    ; External interrupt status 
+                                                                ;register 2
+  53  000000                                 EXTERN   EXTI_CONF.w   ; External interrupt port select
+                                                                ; register
+  54                         ; Wait For Event (WFE)
+  55                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  56  000000                                 EXTERN   WFE_CR1.w     ; WFE control register 1
+  57  000000                                 EXTERN   WFE_CR2.w     ; WFE control register 2
+  58                         ; Reset (RST)
+  59                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  60  000000                                 EXTERN   RST_CR.w      ; Reset control register
+  61  000000                                 EXTERN   RST_SR.w      ; Reset status register
+  62                         ; Clock Control (CLK)
+  63                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  64  000000                                 EXTERN   CLK_CKDIVR.w  ; Clock divider register
+  65  000000                                 EXTERN   CLK_PCKENR.w  ; Peripheral clock gating 
+                                                                ;register
+  66  000000                                 EXTERN   CLK_CCOR.w    ; Configurable clock control 
+                                                                ;register
+  67                         ; Independent Watchdog (IWDG)
+  68                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  69  000000                                 EXTERN   IWDG_KR.w     ; IWDG Key Register
+  70  000000                                 EXTERN   IWDG_PR.w     ; IWDG Prescaler Register
+  71  000000                                 EXTERN   IWDG_RLR.w    ; IWDG Reload Register
+  72                         ; Auto Wake-Up (AWU)
+  73                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  74  000000                                 EXTERN   AWU_CSR.w     ; AWU Control/Status Register
+  75  000000                                 EXTERN   AWU_APR.w     ; AWU asynchronous prescaler 
+                                                                ;buffer register
+  76  000000                                 EXTERN   AWU_TBR.w     ; AWU Timebase selection 
+                                                                ;register
+  77                         ; Beeper (BEEP)
+  78                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+STMicroelectronics list file postprocessor v1.01   (C)2009-2022   Tue Feb 08 00:03:06 2022
+Page 3  Assembler
+                                               c:\project\stm8\bit_asm\main.asm
+
+                               ;;;;;;
+  79  000000                                 EXTERN   BEEP_CSR.w    ; BEEP Control/Status Register
+  80                         ; Serial Peripheral Interface (SPI)
+  81                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  82  000000                                 EXTERN   SPI_CR1.w     ; SPI Control Register 1
+  83  000000                                 EXTERN   SPI_CR2.w     ; SPI Control Register 2
+  84  000000                                 EXTERN   SPI_ICR.w     ; SPI Interrupt Control 
+                                                                ;Register
+  85  000000                                 EXTERN   SPI_SR.w      ; SPI Status Register
+  86  000000                                 EXTERN   SPI_DR.w      ; SPI Data Register
+  87                         ; I2C Bus Interface (I2C)
+  88                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+  89  000000                                 EXTERN   I2C_CR1.w     ; I2C control register 1
+  90  000000                                 EXTERN   I2C_CR2.w     ; I2C control register 2
+  91  000000                                 EXTERN   I2C_FREQR.w   ; I2C frequency register
+  92  000000                                 EXTERN   I2C_OARL.w    ; I2C Own address register low
+  93  000000                                 EXTERN   I2C_OARH.w    ; I2C Own address register high
+  94  000000                                 EXTERN   I2C_DR.w      ; I2C data register
+  95  000000                                 EXTERN   I2C_SR1.w     ; I2C status register 1
+  96  000000                                 EXTERN   I2C_SR2.w     ; I2C status register 2
+  97  000000                                 EXTERN   I2C_SR3.w     ; I2C status register 3
+  98  000000                                 EXTERN   I2C_ITR.w     ; I2C interrupt control 
+                                                                ;register
+  99  000000                                 EXTERN   I2C_CCRL.w    ; I2C Clock control register 
+                                                                ;low
+ 100  000000                                 EXTERN   I2C_CCRH.w    ; I2C Clock control register 
+                                                                ;high
+ 101  000000                                 EXTERN   I2C_TRISER.w  ; I2C TRISE register
+ 102                         ; Universal synch/asynch receiver transmitter (USART)
+ 103                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+ 104  000000                                 EXTERN   USART_SR.w    ; USART Status Register
+ 105  000000                                 EXTERN   USART_DR.w    ; USART Data Register
+ 106  000000                                 EXTERN   USART_BRR1.w  ; USART Baud Rate Register 1
+ 107  000000                                 EXTERN   USART_BRR2.w  ; USART Baud Rate Register 2
+ 108  000000                                 EXTERN   USART_CR1.w   ; USART Control Register 1
+ 109  000000                                 EXTERN   USART_CR2.w   ; USART Control Register 2
+ 110  000000                                 EXTERN   USART_CR3.w   ; USART Control Register 3
+ 111  000000                                 EXTERN   USART_CR4.w   ; USART Control Register 4
+ 112                         ; 16-Bit Timer 2 (TIM2)
+ 113                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+ 114  000000                                 EXTERN   TIM2_CR1.w    ; TIM2 Control register 1
+ 115  000000                                 EXTERN   TIM2_CR2.w    ; TIM2 Control register 2
+ 116  000000                                 EXTERN   TIM2_SMCR.w   ; TIM2 Slave Mode Control 
+                                                                ;register
+ 117  000000                                 EXTERN   TIM2_ETR.w    ; TIM2 External trigger 
+                                                                ;register
+ 118  000000                                 EXTERN   TIM2_IER.w    ; TIM2 Interrupt enable 
+                                                                ;register
+ 119  000000                                 EXTERN   TIM2_SR1.w    ; TIM2 Status register 1
+ 120  000000                                 EXTERN   TIM2_SR2.w    ; TIM2 Status register 2
+ 121  000000                                 EXTERN   TIM2_EGR.w    ; TIM2 Event Generation 
+                                                                ;register
+ 122  000000                                 EXTERN   TIM2_CCMR1.w  ; TIM2 Capture/Compare mode 
+STMicroelectronics list file postprocessor v1.01   (C)2009-2022   Tue Feb 08 00:03:06 2022
+Page 4  Assembler
+                                               c:\project\stm8\bit_asm\main.asm
+
+                                                                ;register 1
+ 123  000000                                 EXTERN   TIM2_CCMR2.w  ; TIM2 Capture/Compare mode 
+                                                                ;register 2
+ 124  000000                                 EXTERN   TIM2_CCER1.w  ; TIM2 Capture/Compare enable 
+                                                                ;register 1
+ 125  000000                                 EXTERN   TIM2_CNTRH.w  ; Data bits High
+ 126  000000                                 EXTERN   TIM2_CNTRL.w  ; Data bits Low
+ 127  000000                                 EXTERN   TIM2_PSCR.w   ; TIM2 Prescaler register
+ 128  000000                                 EXTERN   TIM2_ARRH.w   ; Data bits High
+ 129  000000                                 EXTERN   TIM2_ARRL.w   ; Data bits Low
+ 130  000000                                 EXTERN   TIM2_CCR1H.w  ; Data bits High
+ 131  000000                                 EXTERN   TIM2_CCR1L.w  ; Data bits Low
+ 132  000000                                 EXTERN   TIM2_CCR2H.w  ; Data bits High
+ 133  000000                                 EXTERN   TIM2_CCR2L.w  ; Data bits Low
+ 134  000000                                 EXTERN   TIM2_BKR.w    ; TIM2 Break register
+ 135  000000                                 EXTERN   TIM2_OISR.w   ; TIM2 Output idle state 
+                                                                ;register
+ 136                         ; 16-Bit Timer 3 (TIM3)
+ 137                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+ 138  000000                                 EXTERN   TIM3_CR1.w    ; TIM3 Control register 1
+ 139  000000                                 EXTERN   TIM3_CR2.w    ; TIM3 Control register 2
+ 140  000000                                 EXTERN   TIM3_SMCR.w   ; TIM3 Slave Mode Control 
+                                                                ;register
+ 141  000000                                 EXTERN   TIM3_ETR.w    ; TIM3 External trigger 
+                                                                ;register
+ 142  000000                                 EXTERN   TIM3_IER.w    ; TIM3 Interrupt enable 
+                                                                ;register
+ 143  000000                                 EXTERN   TIM3_SR1.w    ; TIM3 Status register 1
+ 144  000000                                 EXTERN   TIM3_SR2.w    ; TIM3 Status register 2
+ 145  000000                                 EXTERN   TIM3_EGR.w    ; TIM3 Event Generation 
+                                                                ;register
+ 146  000000                                 EXTERN   TIM3_CCMR1.w  ; TIM3 Capture/Compare mode 
+                                                                ;register 1
+ 147  000000                                 EXTERN   TIM3_CCMR2.w  ; TIM3 Capture/Compare mode 
+                                                                ;register 2
+ 148  000000                                 EXTERN   TIM3_CCER1.w  ; TIM3 Capture/Compare enable 
+                                                                ;register 1
+ 149  000000                                 EXTERN   TIM3_CNTRH.w  ; Data bits High
+ 150  000000                                 EXTERN   TIM3_CNTRL.w  ; Data bits Low
+ 151  000000                                 EXTERN   TIM3_PSCR.w   ; TIM3 Prescaler register
+ 152  000000                                 EXTERN   TIM3_ARRH.w   ; Data bits High
+ 153  000000                                 EXTERN   TIM3_ARRL.w   ; Data bits Low
+ 154  000000                                 EXTERN   TIM3_CCR1H.w  ; Data bits High
+ 155  000000                                 EXTERN   TIM3_CCR1L.w  ; Data bits Low
+ 156  000000                                 EXTERN   TIM3_CCR2H.w  ; Data bits High
+ 157  000000                                 EXTERN   TIM3_CCR2L.w  ; Data bits Low
+ 158  000000                                 EXTERN   TIM3_BKR.w    ; TIM3 Break register
+ 159  000000                                 EXTERN   TIM3_OISR.w   ; TIM3 Output idle state 
+                                                                ;register
+ 160                         ; 8-Bit  Timer 4 (TIM4)
+ 161                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+ 162  000000                                 EXTERN   TIM4_CR1.w    ; TIM4 Control register 1
+ 163  000000                                 EXTERN   TIM4_CR2.w    ; TIM4 Control register 2
+ 164  000000                                 EXTERN   TIM4_SMCR.w   ; TIM4 Slave Mode Control 
+                                                                ;register
+STMicroelectronics list file postprocessor v1.01   (C)2009-2022   Tue Feb 08 00:03:06 2022
+Page 5  Assembler
+                                               c:\project\stm8\bit_asm\main.asm
+
+ 165  000000                                 EXTERN   TIM4_IER.w    ; TIM4 Interrupt enable 
+                                                                ;register
+ 166  000000                                 EXTERN   TIM4_SR1.w    ; TIM4 Status register 1
+ 167  000000                                 EXTERN   TIM4_EGR.w    ; TIM4 Event Generation 
+                                                                ;register
+ 168  000000                                 EXTERN   TIM4_CNTR.w   ; TIM4 Counter
+ 169  000000                                 EXTERN   TIM4_PSCR.w   ; TIM4 Prescaler register
+ 170  000000                                 EXTERN   TIM4_ARR.w    ; TIM4 Auto-reload register
+ 171                         ; Infra Red Interface (IR)
+ 172                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+ 173  000000                                 EXTERN   IR_CR.w       ; Infra-red control register
+ 174                         ; Comparators (CMP)
+ 175                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+ 176  000000                                 EXTERN   COMP_CR.w     ; Comparator control register
+ 177  000000                                 EXTERN   COMP_CSR.w    ; Comparator status register
+ 178  000000                                 EXTERN   COMP_CCS.w    ; Comparator channel selection 
+                                                                ;register
+ 179                         ;  Global configuration register (CFG)
+ 180                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+ 181  000000                                 EXTERN   CFG_GCR.w     ; CFG Global configuration 
+                                                                ;register
+ 182                         ; Interrupt Software Priority Register (ITC)
+ 183                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;;;;;;
+ 184  000000                                 EXTERN   ITC_SPR1.w    ; Interrupt Software priority 
+                                                                ;register 1
+ 185  000000                                 EXTERN   ITC_SPR2.w    ; Interrupt Software priority 
+                                                                ;register 2
+ 186  000000                                 EXTERN   ITC_SPR3.w    ; Interrupt Software priority 
+                                                                ;register 3
+ 187  000000                                 EXTERN   ITC_SPR4.w    ; Interrupt Software priority 
+                                                                ;register 4
+ 188  000000                                 EXTERN   ITC_SPR5.w    ; Interrupt Software priority 
+                                                                ;register 5
+ 189  000000                                 EXTERN   ITC_SPR6.w    ; Interrupt Software priority 
+                                                                ;register 6
+ 190  000000                                 EXTERN   ITC_SPR7.w    ; Interrupt Software priority 
+                                                                ;register 7
+ 191  000000                                 EXTERN   ITC_SPR8.w    ; Interrupt Software priority 
+                                                                ;register 8
+ 192  000000                                 #endif                 ; __STM8L101__
+<END_OF_INCLUSION>
+   0  000000                                 #include "macros.inc"
+   1  000000                       delay_ms  MACRO    ms
+   2                                   #IFDEF   F_CPU
+   3                                   #ELSE    
+   4                                   #define  F_CPU 16000
+   5                                   #ENDIF   
+   6                                                          ;ld a, #{{SEG {ms mult {F_CPU 
+                                                                ;div 1000}}} div 5}
+   7                                   ld       a, #{{SEG {ms mult {F_CPU}}} div 5}
+   8                                   ldw      y, #{{OFFSET {ms mult {F_CPU div 1000}}} div 5}
+   9                                   LOCAL    loop
+  10                         loop:     
+  11                                   subw     y, #$01       ; decrement with set carry
+STMicroelectronics list file postprocessor v1.01   (C)2009-2022   Tue Feb 08 00:03:06 2022
+Page 6  Assembler
+                                               c:\project\stm8\bit_asm\main.asm
+
+  12                                   sbc      a,#0          ; decrement carry flag i.e. a = 
+                                                                ;a - carry_flag
+  13                                   jrne     loop
+  14  000000                                 MEND     
+<END_OF_INCLUSION>
+   4                         
+   5                         ;	#include "STM8L101.asm"
+   6                         
+   7  003E80                       F_CPU     equ      16000         
+   8  000004                       LED       equ      4
+   9                                   
+  10                         ;RX_SIZE				equ 31      ; UART Rx buffer size
+  11                         ;TX_SIZE				equ 31      ; UART Tx buffer size
+  12                         
+  13  004925                       UniqueID  equ      $4925         ; указатель на ИД контроллера 
+  14                         
+  15                                   segment  byte at 0 'ram0'
+  16                         ; Раскидал регистры по Inputs и Holding
+  17                         ; 0 - ads_h
+  18                         ; 1 - ads_l
+  19                         ; 2 - рассчитанное значение тока Hiest
+  20                         ; 3 - рассчитанное значение тока Hi
+  21                         ; 4 - рассчитанное значение тока Lo
+  22                         ; 5 - рассчитанное значение тока Lowest
+  23                         ; 6 - ads_h модуль
+  24                         ; 7 - ads_l
+  25  000000                       .RegInput  ds.b     8
+  26                         ; 0 - модбас адрес устройства Hi - не используется
+  27                         ; 1 - модбас адрес устройства Lo
+  28                         ; 2 - смещение нуля Hi
+  29                         ; 3 - смещение нуля  Lo
+  30                         ; 4 - коэффициент приведения Hi	(Hi:Lo	- 3E8 - 1000)
+  31                         ; 5 - коэффициент приведения Lo
+  32                         ; 6 - инициализация ADS1115 Hi	(Hi:Lo	- 0e03 - диапазон 0,256 
+                               ;В, 8 sps)
+  33                         ; 7 - инициализация ADS1115 Lo
+  34  000008                       .RegHolding  ds.b     8
+  35                         
+  36  000010                       .RegMult_Hiest  ds.b     
+  37  000011                       .RegMult_Hi  ds.b     
+  38  000012                       .RegMult_Lo  ds.b     
+  39  000013                       .RegMult_Loest  ds.b     
+  40                         
+  41                         
+  42                                   segment  byte at 18 'ram0'
+  43  000018                       .uartrx_cnt  ds.b     
+  44                         .RxBuff   
+  45  000019                       .RxBuff_addr  ds.b     
+  46  00001A                       .RxBuff_comm  ds.b     
+  47  00001B                       .RxBuff_a  ds.w     
+  48  00001D                       .RxBuff_q  ds.w     
+  49  00001F                       .RxBuff_n  ds.b     
+  50                         
+  51                                   segment  byte at 38 'ram0'
+  52  000038                       .uarttx_cnt  ds.b     
+  53                         .TxBuff   
+  54  000039                       .TxBuff_addr  ds.b     
+  55  00003A                       .TxBuff_comm  ds.b     
+STMicroelectronics list file postprocessor v1.01   (C)2009-2022   Tue Feb 08 00:03:06 2022
+Page 7  Assembler
+                                               c:\project\stm8\bit_asm\main.asm
+
+  56                         .TxBuff_a  
+  57  00003B                       .TxBuff_n  ds.b     
+  58  00003C                       .TxBuff_d  ds.b     
+  59  00003D                       .TxBuff_q  ds.w     
+  60                         
+  61                                   segment  byte at 58 'ram0'
+  62  000058                       .uartrx_cnt_save  ds.b     8
+  63                         
+  64  000060                       .crc_hi   ds.b     
+  65  000061                       .crc_lo   ds.b     
+  66  000062                       .crc_cnt  ds.b     
+  67  000063                       .crc_index  ds.b     
+  68                         
+  69                                   segment  byte at 78 'ram0'
+  70  000078                       .temp1_w  ds.w     
+  71  00007A                       .temp2_w  ds.w     
+  72  00007C                       .temp3_w  ds.w     
+  73  00007E                       .temp4_w  ds.w     
+  74  000080                       .temp1_b  ds.b     
+  75  000081                       .temp2_b  ds.b     
+  76  000082                       .temp3_b  ds.b     
+  77  000083                       .temp4_b  ds.b     
+  78                         
+  79  000084                       ram0_end  ds.b     
+  80                         
+  81  000085                                 extern   delay
+  82                                   
+  83  000085                                 extern   i2c_init
+  84  000085                                 extern   i2c_ads_init  
+  85                                   
+  86  000085                                 extern   uart_init
+  87  000085                                 extern   uart_write_str
+  88  000085                                 extern   modbus_TX
+  89                         
+  90  000085                                 extern   CRC_Hi_table
+  91  000085                                 extern   CRC_Lo_table
+  92                                   
+  93  000085                                 extern   mb_address
+  94  000085                                 extern   adc_shift
+  95  000085                                 extern   adc_koef
+  96  000085                                 extern   adc_reg_init  
+  97                                   
+  98                                   segment  'rom'         
+  99                         .main     
+ 100  00850E   72185007                      bset     PB_DDR, #LED
+ 101  008512   72185008                      bset     PB_CR1, #LED
+ 102  008516   72195009                      bres     PB_CR2, #LED  ; 2 МГц - можно убрать
+ 103                                   
+ 104  00851A   350050C0                      mov      CLK_CKDIVR,#$0  ; Тактирование на максимум
+ 105  00851E   353F50C3                      mov      CLK_PCKENR,#$3F  ; Тактирование периферии
+ 106                                   
+ 107                         clear_ram                        ; очистка озу (для отладки)
+ 108  008522   AE0000                        ldw      X,#0
+ 109                         clear_ram0.l  
+ 110  008525   7F                            clr      (X)
+ 111  008526   5C                            incw     X
+ 112  008527   A30084                        cpw      X,#ram0_end
+STMicroelectronics list file postprocessor v1.01   (C)2009-2022   Tue Feb 08 00:03:06 2022
+Page 8  Assembler
+                                               c:\project\stm8\bit_asm\main.asm
+
+ 113  00852A   23F9                          jrule    clear_ram0    
+ 114                         
+ 115                                   
+ 116  00852C   CE85F0                        ldw      x, mb_address  ; заполняю таблицу регистров 
+                                                                ;модбас значениями
+ 117  00852F   BF08                          ldw      RegHolding,x
+ 118  008531   90AE0002                      ldw      y, #2         
+ 119  008535   CE85F2                        ldw      x, adc_shift
+ 120  008538   90EF08                        ldw      (RegHolding,y),x
+ 121  00853B   90AE0004                      ldw      y, #4         
+ 122  00853F   CE85F4                        ldw      x, adc_koef
+ 123  008542   90EF08                        ldw      (RegHolding,y),x
+ 124  008545   90AE0006                      ldw      y, #6         
+ 125  008549   CE85F6                        ldw      x, adc_reg_init
+ 126  00854C   90EF08                        ldw      (RegHolding,y),x
+ 127                                   
+ 128                                                          ; Можно удалить инициализацию 
+                                                                ;регистров
+ 129  00854F   AE1234                        ldw      x, #$1234     ; заполняю таблицу регистров 
+                                                                ;модбас значениями
+ 130  008552   BF00                          ldw      RegInput,x
+ 131  008554   90AE0002                      ldw      y, #2         
+ 132  008558   AE5678                        ldw      x, #$5678
+ 133  00855B   90EF00                        ldw      (RegInput,y),x
+ 134  00855E   90AE0004                      ldw      y, #4         
+ 135  008562   AE1122                        ldw      x, #$1122
+ 136  008565   90EF00                        ldw      (RegInput,y),x
+ 137                                   
+ 138                         
+ 139                                                          ; включаю таймер определения 
+                                                                ;конца посылки (4 мсек для 
+                                                                ;9600)
+ 140  008568   721152E0                      bres     TIM4_CR1,#0   ; set CEN bit to enable the 
+                                                                ;timer	
+ 141  00856C   721152E3                      bres     TIM4_IER,#0   ; set bit 0 for update irq's
+ 142  008570   350E52E7                      mov      TIM4_PSCR,#$0E  ; timer prescaler	
+ 143  008574   350352E8                      mov      TIM4_ARR,#3
+ 144  008578   721052E5                      bset     TIM4_EGR,#0   ; UG: Update generation	
+ 145  00857C   721652E0                      bset     TIM4_CR1,#3   ; OPM: One Pulse Mode.	
+ 146  008580   721052E3                      bset     TIM4_IER,#0   ; set bit 0 for update irq's
+ 147  008584   721452E0                      bset     TIM4_CR1,#2   ; URS: Update Request Source
+ 148  008588   721052E0                      bset     TIM4_CR1,#0   ; set CEN bit to enable the 
+                                                                ;timer		
+ 149                                   
+ 150                                                          ; Включаю i2c	
+ 151                                                          ; (сделать повторный запуск 
+                                                                ;инициализации после каждого 
+                                                                ;ответа по mb)
+ 152  00858C   CD8080                        call     i2c_init
+ 153  00858F   CD80D7                        call     i2c_ads_init
+ 154                                   
+ 155  008592   35000018                      mov      uartrx_cnt, #0
+ 156  008596   35000058                      mov      uartrx_cnt_save, #0
+ 157  00859A   CD8213                        call     uart_init
+ 158                                   
+ 159  00859D   9A                            rim      
+ 160                                                          ;call unlock_PROG
+STMicroelectronics list file postprocessor v1.01   (C)2009-2022   Tue Feb 08 00:03:06 2022
+Page 9  Assembler
+                                               c:\project\stm8\bit_asm\main.asm
+
+ 161                                                          ;mov	mb_address,#2
+ 162                                   
+ 163                         mloop:    
+ 164  00859E   CC859E                        jp       mloop
+ 165                         
+ 166                         .unlock_PROG:  
+ 167  0085A1   35565052                      mov      FLASH_PUKR,#$56
+ 168  0085A5   35AE5052                      mov      FLASH_PUKR,#$AE
+ 169  0085A9   81                            ret      
+ 170                                   
+ 171                         .unlock_DATA:  
+ 172  0085AA   35AE5053                      mov      FLASH_DUKR,#$AE
+ 173  0085AE   35565053                      mov      FLASH_DUKR,#$56
+ 174  0085B2   81                            ret      
+ 175                         
+ 176                         .lock_memory:  
+ 177  0085B3   72135054                      bres     FLASH_IAPSR,#1  ; PUL - флеш заблокировал
+ 178  0085B7   72175054                      bres     FLASH_IAPSR,#3  ; DUL - еепром заблокировал
+ 179  0085BB   81                            ret      
+ 180                                   
+ 181                         
+ 182  0085BC                                 end      
+STMicroelectronics list file postprocessor v1.01   (C)2009-2022   Tue Feb 08 00:03:06 2022
+Page 10  Assembler
+                                               c:\project\stm8\bit_asm\main.asm
+
+Symbol Name                       Value     Call       Type  Scope      Rel.  Line  Privacy  Segment   Size  Bytes File
+
+AWU_CSR                               50F0         no  WORD  Internal   ABS     74  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+AWU_APR                               50F1         no  WORD  Internal   ABS     75  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+AWU_TBR                               50F2         no  WORD  Internal   ABS     76  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+
+BEEP_CSR                              50F3         no  WORD  Internal   ABS     79  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+
+CLK_CKDIVR                            50C0         no  WORD  Internal   ABS     64  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+CLK_PCKENR                            50C3         no  WORD  Internal   ABS     65  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+CLK_CCOR                              50C5         no  WORD  Internal   ABS     66  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+COMP_CR                               5300         no  WORD  Internal   ABS    176  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+COMP_CSR                              5301         no  WORD  Internal   ABS    177  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+COMP_CCS                              5302         no  WORD  Internal   ABS    178  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+CFG_GCR                               7F60         no  WORD  Internal   ABS    181  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+CRC_Hi_table                          8600         no  WORD  Internal   ABS     90  private  text         0     0  -
+CRC_Lo_table                          8700         no  WORD  Internal   ABS     91  private  text         0     0  -
+
+EXTI_CR1                              50A0         no  WORD  Internal   ABS     48  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+EXTI_CR2                              50A1         no  WORD  Internal   ABS     49  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+EXTI_CR3                              50A2         no  WORD  Internal   ABS     50  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+EXTI_SR1                              50A3         no  WORD  Internal   ABS     51  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+EXTI_SR2                              50A4         no  WORD  Internal   ABS     52  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+EXTI_CONF                             50A5         no  WORD  Internal   ABS     53  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+
+FLASH_CR1                             5050         no  WORD  Internal   ABS     41  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+FLASH_CR2                             5051         no  WORD  Internal   ABS     42  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+FLASH_PUKR                            5052         no  WORD  Internal   ABS     43  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+FLASH_DUKR                            5053         no  WORD  Internal   ABS     44  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+FLASH_IAPSR                           5054         no  WORD  Internal   ABS     45  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+F_CPU                                 3E80         no  WORD  Internal   ABS      7  private  text         0     0  -
+
+IWDG_KR                               50E0         no  WORD  Internal   ABS     69  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+IWDG_PR                               50E1         no  WORD  Internal   ABS     70  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+IWDG_RLR                              50E2         no  WORD  Internal   ABS     71  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+I2C_CR1                               5210         no  WORD  Internal   ABS     89  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+I2C_CR2                               5211         no  WORD  Internal   ABS     90  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+I2C_FREQR                             5212         no  WORD  Internal   ABS     91  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+I2C_OARL                              5213         no  WORD  Internal   ABS     92  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+I2C_OARH                              5214         no  WORD  Internal   ABS     93  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+I2C_DR                                5216         no  WORD  Internal   ABS     94  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+I2C_SR1                               5217         no  WORD  Internal   ABS     95  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+I2C_SR2                               5218         no  WORD  Internal   ABS     96  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+I2C_SR3                               5219         no  WORD  Internal   ABS     97  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+I2C_ITR                               521A         no  WORD  Internal   ABS     98  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+I2C_CCRL                              521B         no  WORD  Internal   ABS     99  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+I2C_CCRH                              521C         no  WORD  Internal   ABS    100  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+I2C_TRISER                            521D         no  WORD  Internal   ABS    101  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+IR_CR                                 52FF         no  WORD  Internal   ABS    173  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+ITC_SPR1                              7F70         no  WORD  Internal   ABS    184  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+ITC_SPR2                              7F71         no  WORD  Internal   ABS    185  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+ITC_SPR3                              7F72         no  WORD  Internal   ABS    186  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+ITC_SPR4                              7F73         no  WORD  Internal   ABS    187  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+ITC_SPR5                              7F74         no  WORD  Internal   ABS    188  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+ITC_SPR6                              7F75         no  WORD  Internal   ABS    189  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+ITC_SPR7                              7F76         no  WORD  Internal   ABS    190  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+ITC_SPR8                              7F77         no  WORD  Internal   ABS    191  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+STMicroelectronics list file postprocessor v1.01   (C)2009-2022   Tue Feb 08 00:03:06 2022
+Page 11  Assembler
+                                               c:\project\stm8\bit_asm\main.asm
+
+
+LED                                   0004         no  WORD  Internal   ABS      8  private  text         0     0  -
+
+PA_ODR                                5000         no  WORD  Internal   ABS     13  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PA_IDR                                5001         no  WORD  Internal   ABS     14  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PA_DDR                                5002         no  WORD  Internal   ABS     15  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PA_CR1                                5003         no  WORD  Internal   ABS     16  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PA_CR2                                5004         no  WORD  Internal   ABS     17  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PB_ODR                                5005         no  WORD  Internal   ABS     20  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PB_IDR                                5006         no  WORD  Internal   ABS     21  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PB_DDR                                5007         no  WORD  Internal   ABS     22  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PB_CR1                                5008         no  WORD  Internal   ABS     23  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PB_CR2                                5009         no  WORD  Internal   ABS     24  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PC_ODR                                500A         no  WORD  Internal   ABS     27  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PC_IDR                                500B         no  WORD  Internal   ABS     28  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PC_DDR                                500C         no  WORD  Internal   ABS     29  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PC_CR1                                500D         no  WORD  Internal   ABS     30  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PC_CR2                                500E         no  WORD  Internal   ABS     31  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PD_ODR                                500F         no  WORD  Internal   ABS     34  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PD_IDR                                5010         no  WORD  Internal   ABS     35  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PD_DDR                                5011         no  WORD  Internal   ABS     36  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PD_CR1                                5012         no  WORD  Internal   ABS     37  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+PD_CR2                                5013         no  WORD  Internal   ABS     38  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+
+RST_CR                                50B0         no  WORD  Internal   ABS     60  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+RST_SR                                50B1         no  WORD  Internal   ABS     61  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+RegInput                              0000         no  WORD  Internal   ABS     25  public   bss          8     1  -
+RegHolding                            0008         no  WORD  Internal   ABS     34  public   bss          8     1  -
+RegMult_Hiest                         0010         no  WORD  Internal   ABS     36  public   bss          1     1  -
+RegMult_Hi                            0011         no  WORD  Internal   ABS     37  public   bss          1     1  -
+RegMult_Lo                            0012         no  WORD  Internal   ABS     38  public   bss          1     1  -
+RegMult_Loest                         0013         no  WORD  Internal   ABS     39  public   bss          1     1  -
+RxBuff                                0019         no  WORD  Internal   ABS     44  public   bss          1     1  -
+RxBuff_addr                           0019         no  WORD  Internal   ABS     45  public   bss          1     1  -
+RxBuff_comm                           001A         no  WORD  Internal   ABS     46  public   bss          1     1  -
+RxBuff_a                              001B         no  WORD  Internal   ABS     47  public   bss          2     2  -
+RxBuff_q                              001D         no  WORD  Internal   ABS     48  public   bss          2     2  -
+RxBuff_n                              001F         no  WORD  Internal   ABS     49  public   bss          1     1  -
+
+SPI_CR1                               5200         no  WORD  Internal   ABS     82  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+SPI_CR2                               5201         no  WORD  Internal   ABS     83  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+SPI_ICR                               5202         no  WORD  Internal   ABS     84  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+SPI_SR                                5203         no  WORD  Internal   ABS     85  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+SPI_DR                                5204         no  WORD  Internal   ABS     86  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+
+TIM2_CR1                              5250         no  WORD  Internal   ABS    114  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_CR2                              5251         no  WORD  Internal   ABS    115  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_SMCR                             5252         no  WORD  Internal   ABS    116  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_ETR                              5253         no  WORD  Internal   ABS    117  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_IER                              5254         no  WORD  Internal   ABS    118  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_SR1                              5255         no  WORD  Internal   ABS    119  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_SR2                              5256         no  WORD  Internal   ABS    120  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_EGR                              5257         no  WORD  Internal   ABS    121  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_CCMR1                            5258         no  WORD  Internal   ABS    122  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_CCMR2                            5259         no  WORD  Internal   ABS    123  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_CCER1                            525A         no  WORD  Internal   ABS    124  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_CNTRH                            525B         no  WORD  Internal   ABS    125  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+STMicroelectronics list file postprocessor v1.01   (C)2009-2022   Tue Feb 08 00:03:06 2022
+Page 12  Assembler
+                                               c:\project\stm8\bit_asm\main.asm
+
+TIM2_CNTRL                            525C         no  WORD  Internal   ABS    126  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_PSCR                             525D         no  WORD  Internal   ABS    127  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_ARRH                             525E         no  WORD  Internal   ABS    128  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_ARRL                             525F         no  WORD  Internal   ABS    129  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_CCR1H                            5260         no  WORD  Internal   ABS    130  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_CCR1L                            5261         no  WORD  Internal   ABS    131  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_CCR2H                            5262         no  WORD  Internal   ABS    132  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_CCR2L                            5263         no  WORD  Internal   ABS    133  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_BKR                              5264         no  WORD  Internal   ABS    134  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM2_OISR                             5265         no  WORD  Internal   ABS    135  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_CR1                              5280         no  WORD  Internal   ABS    138  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_CR2                              5281         no  WORD  Internal   ABS    139  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_SMCR                             5282         no  WORD  Internal   ABS    140  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_ETR                              5283         no  WORD  Internal   ABS    141  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_IER                              5284         no  WORD  Internal   ABS    142  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_SR1                              5285         no  WORD  Internal   ABS    143  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_SR2                              5286         no  WORD  Internal   ABS    144  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_EGR                              5287         no  WORD  Internal   ABS    145  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_CCMR1                            5288         no  WORD  Internal   ABS    146  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_CCMR2                            5289         no  WORD  Internal   ABS    147  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_CCER1                            528A         no  WORD  Internal   ABS    148  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_CNTRH                            528B         no  WORD  Internal   ABS    149  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_CNTRL                            528C         no  WORD  Internal   ABS    150  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_PSCR                             528D         no  WORD  Internal   ABS    151  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_ARRH                             528E         no  WORD  Internal   ABS    152  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_ARRL                             528F         no  WORD  Internal   ABS    153  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_CCR1H                            5290         no  WORD  Internal   ABS    154  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_CCR1L                            5291         no  WORD  Internal   ABS    155  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_CCR2H                            5292         no  WORD  Internal   ABS    156  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_CCR2L                            5293         no  WORD  Internal   ABS    157  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_BKR                              5294         no  WORD  Internal   ABS    158  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM3_OISR                             5295         no  WORD  Internal   ABS    159  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM4_CR1                              52E0         no  WORD  Internal   ABS    162  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM4_CR2                              52E1         no  WORD  Internal   ABS    163  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM4_SMCR                             52E2         no  WORD  Internal   ABS    164  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM4_IER                              52E3         no  WORD  Internal   ABS    165  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM4_SR1                              52E4         no  WORD  Internal   ABS    166  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM4_EGR                              52E5         no  WORD  Internal   ABS    167  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM4_CNTR                             52E6         no  WORD  Internal   ABS    168  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM4_PSCR                             52E7         no  WORD  Internal   ABS    169  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TIM4_ARR                              52E8         no  WORD  Internal   ABS    170  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+TxBuff                                0039         no  WORD  Internal   ABS     53  public   bss          1     1  -
+TxBuff_addr                           0039         no  WORD  Internal   ABS     54  public   bss          1     1  -
+TxBuff_comm                           003A         no  WORD  Internal   ABS     55  public   bss          1     1  -
+TxBuff_a                              003B         no  WORD  Internal   ABS     56  public   bss          1     1  -
+TxBuff_n                              003B         no  WORD  Internal   ABS     57  public   bss          1     1  -
+TxBuff_d                              003C         no  WORD  Internal   ABS     58  public   bss          1     1  -
+TxBuff_q                              003D         no  WORD  Internal   ABS     59  public   bss          2     2  -
+
+USART_SR                              5230         no  WORD  Internal   ABS    104  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+USART_DR                              5231         no  WORD  Internal   ABS    105  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+USART_BRR1                            5232         no  WORD  Internal   ABS    106  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+USART_BRR2                            5233         no  WORD  Internal   ABS    107  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+USART_CR1                             5234         no  WORD  Internal   ABS    108  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+USART_CR2                             5235         no  WORD  Internal   ABS    109  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+USART_CR3                             5236         no  WORD  Internal   ABS    110  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+USART_CR4                             5237         no  WORD  Internal   ABS    111  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+STMicroelectronics list file postprocessor v1.01   (C)2009-2022   Tue Feb 08 00:03:06 2022
+Page 13  Assembler
+                                               c:\project\stm8\bit_asm\main.asm
+
+UniqueID                              4925         no  WORD  Internal   ABS     13  private  text         0     0  -
+
+WFE_CR1                               50A6         no  WORD  Internal   ABS     56  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+WFE_CR2                               50A7         no  WORD  Internal   ABS     57  private  text         0     0  c:\project\stm8\bit_asm\stm8l101.inc
+
+adc_shift                             85F2         no  WORD  Internal   ABS     94  private  text         0     0  -
+adc_koef                              85F4         no  WORD  Internal   ABS     95  private  text         0     0  -
+adc_reg_init                          85F6         no  WORD  Internal   ABS     96  private  text         0     0  -
+
+crc_hi                                0060         no  WORD  Internal   ABS     64  public   bss          1     1  -
+crc_lo                                0061         no  WORD  Internal   ABS     65  public   bss          1     1  -
+crc_cnt                               0062         no  WORD  Internal   ABS     66  public   bss          1     1  -
+crc_index                             0063         no  WORD  Internal   ABS     67  public   bss          1     1  -
+clear_ram                             8522         no  WORD  Internal   ABS    107  private  text         3     0  -
+clear_ram0                        00008525         no  LONG  Internal   ABS    109  private  text       121     0  -
+
+delay                                 85BC         no  WORD  Internal   ABS     81  private  text         0     0  -
+
+i2c_init                              8080         no  WORD  Internal   ABS     83  private  text         0     0  -
+i2c_ads_init                          80D7         no  WORD  Internal   ABS     84  private  text         0     0  -
+
+lock_memory                           85B3         no  WORD  Internal   ABS    176  public   text         9     0  -
+
+mb_address                            85F0         no  WORD  Internal   ABS     93  private  text         0     0  -
+main                                  850E         no  WORD  Internal   ABS     99  public   text        20     0  -
+mloop                                 859E         no  WORD  Internal   ABS    163  private  text         3     0  -
+
+ram0_end                              0084         no  WORD  Internal   ABS     79  private  bss          1     1  -
+
+temp1_w                               0078         no  WORD  Internal   ABS     70  public   bss          2     2  -
+temp2_w                               007A         no  WORD  Internal   ABS     71  public   bss          2     2  -
+temp3_w                               007C         no  WORD  Internal   ABS     72  public   bss          2     2  -
+temp4_w                               007E         no  WORD  Internal   ABS     73  public   bss          2     2  -
+temp1_b                               0080         no  WORD  Internal   ABS     74  public   bss          1     1  -
+temp2_b                               0081         no  WORD  Internal   ABS     75  public   bss          1     1  -
+temp3_b                               0082         no  WORD  Internal   ABS     76  public   bss          1     1  -
+temp4_b                               0083         no  WORD  Internal   ABS     77  public   bss          1     1  -
+
+uartrx_cnt                            0018         no  WORD  Internal   ABS     43  public   bss          1     1  -
+uarttx_cnt                            0038         no  WORD  Internal   ABS     52  public   bss          1     1  -
+uartrx_cnt_save                       0058         no  WORD  Internal   ABS     62  public   bss          8     1  -
+uart_init                             8213         no  WORD  Internal   ABS     86  private  text         0     0  -
+unlock_PROG                           85A1         no  WORD  Internal   ABS    166  public   text         9     0  -
+unlock_DATA                           85AA         no  WORD  Internal   ABS    171  public   text         9     0  -
+
+
+192 labels
+No errors on assembly of 'c:\project\stm8\bit_asm\main.asm'

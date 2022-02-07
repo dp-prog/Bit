@@ -1,0 +1,261 @@
+
+Segment List
+------------
+
+c:\project\stm8\bit_asm\main.asm[1]   15-   41         0 -       13                 'ram0'  [void]
+c:\project\stm8\bit_asm\main.asm[2]   42-   50        18 -       1F                 'ram0'  [void]
+c:\project\stm8\bit_asm\main.asm[3]   51-   60        38 -       3E                 'ram0'  [void]
+c:\project\stm8\bit_asm\main.asm[4]   61-   68        58 -       63                 'ram0'  [void]
+c:\project\stm8\bit_asm\main.asm[5]   69-   97        78 -       84                 'ram0'  [void]
+c:\project\stm8\bit_asm\ads1115.asm[1]   28-  201      8080 -     8212                 'rom'  [text]
+c:\project\stm8\bit_asm\uart_mb.asm[1]   63-  367      8213 -     84AB                 'rom'  [text]
+c:\project\stm8\bit_asm\irq.asm[1]   25-   77      84AC -     850D                 'rom'  [text]
+c:\project\stm8\bit_asm\main.asm[6]   98-  181      850E -     85BB                 'rom'  [text]
+c:\project\stm8\bit_asm\utils.asm[1]    3-   20      85BC -     85D1                 'rom'  [text]
+c:\project\stm8\bit_asm\irq.asm[2]   78-  111      8000 -     807F                 'vectit'  [data]
+c:\project\stm8\bit_asm\rom.asm[2]    6-   17      85F0 -     85F7                 'eprom'  [data]
+c:\project\stm8\bit_asm\rom.asm[4]   19-   87      8600 -     87FF                 'table'  [data]
+c:\project\stm8\bit_asm\stm8l101.asm[2]   13-  236      5000 -     7F77                 'periph2'  [void]
+
+
+Class List
+----------
+
+0 '        ram0'   byte from        0 to       84 (lim       FF) = 51% D
+0 '        ram1'   byte from      100 to       FF (lim      3FE) =  0% V
+0 '       stack'   byte from      3FF to      3FE (lim      5FF) =  0% V
+0 '         rom'   byte from     8080 to     85D1 (lim     87FF) = 70% C
+0 '      vectit'   byte from     8000 to     807F (lim     807F) =100% S
+0 '       eprom'   byte from     85F0 to     85F7 (lim     85FF) = 46% S
+0 '       table'   byte from     8600 to     87FF (lim     87FF) =100% S
+0 '      periph'   byte from        0 to FFFFFFFF (lim       7F) =  0% V
+0 '     periph2'   byte from     5000 to     7F77 (lim FFFFFFFF) =  0% D
+
+
+
+External Label list
+-------------------
+
+Symbol Name                       Value     Scope  Def(line)
+
+AWU_CSR                               50F0  WORD  c:\project\stm8\bit_asm\stm8l101.asm(97)
+AWU_APR                               50F1  WORD  c:\project\stm8\bit_asm\stm8l101.asm(98)
+AWU_TBR                               50F2  WORD  c:\project\stm8\bit_asm\stm8l101.asm(99)
+
+BEEP_CSR                              50F3  WORD  c:\project\stm8\bit_asm\stm8l101.asm(103)
+
+CRC_Hi_table                          8600  WORD  c:\project\stm8\bit_asm\rom.asm(20)
+CRC_Lo_table                          8700  WORD  c:\project\stm8\bit_asm\rom.asm(54)
+CLK_CKDIVR                            50C0  WORD  c:\project\stm8\bit_asm\stm8l101.asm(81)
+CLK_PCKENR                            50C3  WORD  c:\project\stm8\bit_asm\stm8l101.asm(83)
+CLK_CCOR                              50C5  WORD  c:\project\stm8\bit_asm\stm8l101.asm(85)
+COMP_CR                               5300  WORD  c:\project\stm8\bit_asm\stm8l101.asm(216)
+COMP_CSR                              5301  WORD  c:\project\stm8\bit_asm\stm8l101.asm(217)
+COMP_CCS                              5302  WORD  c:\project\stm8\bit_asm\stm8l101.asm(218)
+CFG_GCR                               7F60  WORD  c:\project\stm8\bit_asm\stm8l101.asm(223)
+
+EXTI_CR1                              50A0  WORD  c:\project\stm8\bit_asm\stm8l101.asm(60)
+EXTI_CR2                              50A1  WORD  c:\project\stm8\bit_asm\stm8l101.asm(61)
+EXTI_CR3                              50A2  WORD  c:\project\stm8\bit_asm\stm8l101.asm(62)
+EXTI_SR1                              50A3  WORD  c:\project\stm8\bit_asm\stm8l101.asm(63)
+EXTI_SR2                              50A4  WORD  c:\project\stm8\bit_asm\stm8l101.asm(64)
+EXTI_CONF                             50A5  WORD  c:\project\stm8\bit_asm\stm8l101.asm(65)
+
+FLASH_PUKR                            5052  WORD  c:\project\stm8\bit_asm\stm8l101.asm(53)
+FLASH_DUKR                            5053  WORD  c:\project\stm8\bit_asm\stm8l101.asm(54)
+FLASH_IAPSR                           5054  WORD  c:\project\stm8\bit_asm\stm8l101.asm(55)
+FLASH_CR1                             5050  WORD  c:\project\stm8\bit_asm\stm8l101.asm(51)
+FLASH_CR2                             5051  WORD  c:\project\stm8\bit_asm\stm8l101.asm(52)
+
+I2C_CR1                               5210  WORD  c:\project\stm8\bit_asm\stm8l101.asm(117)
+I2C_CR2                               5211  WORD  c:\project\stm8\bit_asm\stm8l101.asm(118)
+I2C_FREQR                             5212  WORD  c:\project\stm8\bit_asm\stm8l101.asm(119)
+I2C_DR                                5216  WORD  c:\project\stm8\bit_asm\stm8l101.asm(123)
+I2C_SR1                               5217  WORD  c:\project\stm8\bit_asm\stm8l101.asm(124)
+I2C_SR3                               5219  WORD  c:\project\stm8\bit_asm\stm8l101.asm(126)
+I2C_ITR                               521A  WORD  c:\project\stm8\bit_asm\stm8l101.asm(127)
+I2C_CCRL                              521B  WORD  c:\project\stm8\bit_asm\stm8l101.asm(128)
+I2C_CCRH                              521C  WORD  c:\project\stm8\bit_asm\stm8l101.asm(129)
+I2C_TRISER                            521D  WORD  c:\project\stm8\bit_asm\stm8l101.asm(130)
+IWDG_KR                               50E0  WORD  c:\project\stm8\bit_asm\stm8l101.asm(90)
+IWDG_PR                               50E1  WORD  c:\project\stm8\bit_asm\stm8l101.asm(91)
+IWDG_RLR                              50E2  WORD  c:\project\stm8\bit_asm\stm8l101.asm(92)
+I2C_OARL                              5213  WORD  c:\project\stm8\bit_asm\stm8l101.asm(120)
+I2C_OARH                              5214  WORD  c:\project\stm8\bit_asm\stm8l101.asm(121)
+I2C_SR2                               5218  WORD  c:\project\stm8\bit_asm\stm8l101.asm(125)
+IR_CR                                 52FF  WORD  c:\project\stm8\bit_asm\stm8l101.asm(212)
+ITC_SPR1                              7F70  WORD  c:\project\stm8\bit_asm\stm8l101.asm(228)
+ITC_SPR2                              7F71  WORD  c:\project\stm8\bit_asm\stm8l101.asm(229)
+ITC_SPR3                              7F72  WORD  c:\project\stm8\bit_asm\stm8l101.asm(230)
+ITC_SPR4                              7F73  WORD  c:\project\stm8\bit_asm\stm8l101.asm(231)
+ITC_SPR5                              7F74  WORD  c:\project\stm8\bit_asm\stm8l101.asm(232)
+ITC_SPR6                              7F75  WORD  c:\project\stm8\bit_asm\stm8l101.asm(233)
+ITC_SPR7                              7F76  WORD  c:\project\stm8\bit_asm\stm8l101.asm(234)
+ITC_SPR8                              7F77  WORD  c:\project\stm8\bit_asm\stm8l101.asm(235)
+
+PC_DDR                                500C  WORD  c:\project\stm8\bit_asm\stm8l101.asm(36)
+PC_CR1                                500D  WORD  c:\project\stm8\bit_asm\stm8l101.asm(37)
+PC_CR2                                500E  WORD  c:\project\stm8\bit_asm\stm8l101.asm(38)
+PC_ODR                                500A  WORD  c:\project\stm8\bit_asm\stm8l101.asm(34)
+PB_ODR                                5005  WORD  c:\project\stm8\bit_asm\stm8l101.asm(26)
+PB_DDR                                5007  WORD  c:\project\stm8\bit_asm\stm8l101.asm(28)
+PB_CR1                                5008  WORD  c:\project\stm8\bit_asm\stm8l101.asm(29)
+PB_CR2                                5009  WORD  c:\project\stm8\bit_asm\stm8l101.asm(30)
+PA_ODR                                5000  WORD  c:\project\stm8\bit_asm\stm8l101.asm(18)
+PA_IDR                                5001  WORD  c:\project\stm8\bit_asm\stm8l101.asm(19)
+PA_DDR                                5002  WORD  c:\project\stm8\bit_asm\stm8l101.asm(20)
+PA_CR1                                5003  WORD  c:\project\stm8\bit_asm\stm8l101.asm(21)
+PA_CR2                                5004  WORD  c:\project\stm8\bit_asm\stm8l101.asm(22)
+PB_IDR                                5006  WORD  c:\project\stm8\bit_asm\stm8l101.asm(27)
+PC_IDR                                500B  WORD  c:\project\stm8\bit_asm\stm8l101.asm(35)
+PD_ODR                                500F  WORD  c:\project\stm8\bit_asm\stm8l101.asm(42)
+PD_IDR                                5010  WORD  c:\project\stm8\bit_asm\stm8l101.asm(43)
+PD_DDR                                5011  WORD  c:\project\stm8\bit_asm\stm8l101.asm(44)
+PD_CR1                                5012  WORD  c:\project\stm8\bit_asm\stm8l101.asm(45)
+PD_CR2                                5013  WORD  c:\project\stm8\bit_asm\stm8l101.asm(46)
+
+RegInput                              0000  WORD  c:\project\stm8\bit_asm\main.asm(25)
+RegHolding                            0008  WORD  c:\project\stm8\bit_asm\main.asm(34)
+RegMult_Hiest                         0010  WORD  c:\project\stm8\bit_asm\main.asm(36)
+RegMult_Hi                            0011  WORD  c:\project\stm8\bit_asm\main.asm(37)
+RegMult_Lo                            0012  WORD  c:\project\stm8\bit_asm\main.asm(38)
+RegMult_Loest                         0013  WORD  c:\project\stm8\bit_asm\main.asm(39)
+RxBuff                                0019  WORD  c:\project\stm8\bit_asm\main.asm(44)
+RxBuff_addr                           0019  WORD  c:\project\stm8\bit_asm\main.asm(45)
+RxBuff_comm                           001A  WORD  c:\project\stm8\bit_asm\main.asm(46)
+RxBuff_a                              001B  WORD  c:\project\stm8\bit_asm\main.asm(47)
+RxBuff_q                              001D  WORD  c:\project\stm8\bit_asm\main.asm(48)
+RxBuff_n                              001F  WORD  c:\project\stm8\bit_asm\main.asm(49)
+RX_CRC                                83E5  WORD  c:\project\stm8\bit_asm\uart_mb.asm(282)
+RST_CR                                50B0  WORD  c:\project\stm8\bit_asm\stm8l101.asm(75)
+RST_SR                                50B1  WORD  c:\project\stm8\bit_asm\stm8l101.asm(76)
+
+SPI_CR1                               5200  WORD  c:\project\stm8\bit_asm\stm8l101.asm(108)
+SPI_CR2                               5201  WORD  c:\project\stm8\bit_asm\stm8l101.asm(109)
+SPI_ICR                               5202  WORD  c:\project\stm8\bit_asm\stm8l101.asm(110)
+SPI_SR                                5203  WORD  c:\project\stm8\bit_asm\stm8l101.asm(111)
+SPI_DR                                5204  WORD  c:\project\stm8\bit_asm\stm8l101.asm(112)
+
+TxBuff                                0039  WORD  c:\project\stm8\bit_asm\main.asm(53)
+TxBuff_addr                           0039  WORD  c:\project\stm8\bit_asm\main.asm(54)
+TxBuff_comm                           003A  WORD  c:\project\stm8\bit_asm\main.asm(55)
+TxBuff_a                              003B  WORD  c:\project\stm8\bit_asm\main.asm(56)
+TxBuff_n                              003B  WORD  c:\project\stm8\bit_asm\main.asm(57)
+TxBuff_d                              003C  WORD  c:\project\stm8\bit_asm\main.asm(58)
+TxBuff_q                              003D  WORD  c:\project\stm8\bit_asm\main.asm(59)
+TIM4_CR1                              52E0  WORD  c:\project\stm8\bit_asm\stm8l101.asm(199)
+TIM4_IER                              52E3  WORD  c:\project\stm8\bit_asm\stm8l101.asm(202)
+TIM4_SR1                              52E4  WORD  c:\project\stm8\bit_asm\stm8l101.asm(203)
+TIM4_EGR                              52E5  WORD  c:\project\stm8\bit_asm\stm8l101.asm(204)
+TIM4_PSCR                             52E7  WORD  c:\project\stm8\bit_asm\stm8l101.asm(206)
+TIM4_ARR                              52E8  WORD  c:\project\stm8\bit_asm\stm8l101.asm(207)
+TIM2_CR1                              5250  WORD  c:\project\stm8\bit_asm\stm8l101.asm(147)
+TIM2_CR2                              5251  WORD  c:\project\stm8\bit_asm\stm8l101.asm(148)
+TIM2_SMCR                             5252  WORD  c:\project\stm8\bit_asm\stm8l101.asm(149)
+TIM2_ETR                              5253  WORD  c:\project\stm8\bit_asm\stm8l101.asm(150)
+TIM2_IER                              5254  WORD  c:\project\stm8\bit_asm\stm8l101.asm(151)
+TIM2_SR1                              5255  WORD  c:\project\stm8\bit_asm\stm8l101.asm(152)
+TIM2_SR2                              5256  WORD  c:\project\stm8\bit_asm\stm8l101.asm(153)
+TIM2_EGR                              5257  WORD  c:\project\stm8\bit_asm\stm8l101.asm(154)
+TIM2_CCMR1                            5258  WORD  c:\project\stm8\bit_asm\stm8l101.asm(155)
+TIM2_CCMR2                            5259  WORD  c:\project\stm8\bit_asm\stm8l101.asm(156)
+TIM2_CCER1                            525A  WORD  c:\project\stm8\bit_asm\stm8l101.asm(157)
+TIM2_CNTRH                            525B  WORD  c:\project\stm8\bit_asm\stm8l101.asm(158)
+TIM2_CNTRL                            525C  WORD  c:\project\stm8\bit_asm\stm8l101.asm(159)
+TIM2_PSCR                             525D  WORD  c:\project\stm8\bit_asm\stm8l101.asm(160)
+TIM2_ARRH                             525E  WORD  c:\project\stm8\bit_asm\stm8l101.asm(161)
+TIM2_ARRL                             525F  WORD  c:\project\stm8\bit_asm\stm8l101.asm(162)
+TIM2_CCR1H                            5260  WORD  c:\project\stm8\bit_asm\stm8l101.asm(163)
+TIM2_CCR1L                            5261  WORD  c:\project\stm8\bit_asm\stm8l101.asm(164)
+TIM2_CCR2H                            5262  WORD  c:\project\stm8\bit_asm\stm8l101.asm(165)
+TIM2_CCR2L                            5263  WORD  c:\project\stm8\bit_asm\stm8l101.asm(166)
+TIM2_BKR                              5264  WORD  c:\project\stm8\bit_asm\stm8l101.asm(167)
+TIM2_OISR                             5265  WORD  c:\project\stm8\bit_asm\stm8l101.asm(168)
+TIM3_CR1                              5280  WORD  c:\project\stm8\bit_asm\stm8l101.asm(173)
+TIM3_CR2                              5281  WORD  c:\project\stm8\bit_asm\stm8l101.asm(174)
+TIM3_SMCR                             5282  WORD  c:\project\stm8\bit_asm\stm8l101.asm(175)
+TIM3_ETR                              5283  WORD  c:\project\stm8\bit_asm\stm8l101.asm(176)
+TIM3_IER                              5284  WORD  c:\project\stm8\bit_asm\stm8l101.asm(177)
+TIM3_SR1                              5285  WORD  c:\project\stm8\bit_asm\stm8l101.asm(178)
+TIM3_SR2                              5286  WORD  c:\project\stm8\bit_asm\stm8l101.asm(179)
+TIM3_EGR                              5287  WORD  c:\project\stm8\bit_asm\stm8l101.asm(180)
+TIM3_CCMR1                            5288  WORD  c:\project\stm8\bit_asm\stm8l101.asm(181)
+TIM3_CCMR2                            5289  WORD  c:\project\stm8\bit_asm\stm8l101.asm(182)
+TIM3_CCER1                            528A  WORD  c:\project\stm8\bit_asm\stm8l101.asm(183)
+TIM3_CNTRH                            528B  WORD  c:\project\stm8\bit_asm\stm8l101.asm(184)
+TIM3_CNTRL                            528C  WORD  c:\project\stm8\bit_asm\stm8l101.asm(185)
+TIM3_PSCR                             528D  WORD  c:\project\stm8\bit_asm\stm8l101.asm(186)
+TIM3_ARRH                             528E  WORD  c:\project\stm8\bit_asm\stm8l101.asm(187)
+TIM3_ARRL                             528F  WORD  c:\project\stm8\bit_asm\stm8l101.asm(188)
+TIM3_CCR1H                            5290  WORD  c:\project\stm8\bit_asm\stm8l101.asm(189)
+TIM3_CCR1L                            5291  WORD  c:\project\stm8\bit_asm\stm8l101.asm(190)
+TIM3_CCR2H                            5292  WORD  c:\project\stm8\bit_asm\stm8l101.asm(191)
+TIM3_CCR2L                            5293  WORD  c:\project\stm8\bit_asm\stm8l101.asm(192)
+TIM3_BKR                              5294  WORD  c:\project\stm8\bit_asm\stm8l101.asm(193)
+TIM3_OISR                             5295  WORD  c:\project\stm8\bit_asm\stm8l101.asm(194)
+TIM4_CR2                              52E1  WORD  c:\project\stm8\bit_asm\stm8l101.asm(200)
+TIM4_SMCR                             52E2  WORD  c:\project\stm8\bit_asm\stm8l101.asm(201)
+TIM4_CNTR                             52E6  WORD  c:\project\stm8\bit_asm\stm8l101.asm(205)
+
+USART_SR                              5230  WORD  c:\project\stm8\bit_asm\stm8l101.asm(135)
+USART_DR                              5231  WORD  c:\project\stm8\bit_asm\stm8l101.asm(136)
+USART_BRR1                            5232  WORD  c:\project\stm8\bit_asm\stm8l101.asm(137)
+USART_BRR2                            5233  WORD  c:\project\stm8\bit_asm\stm8l101.asm(138)
+USART_CR1                             5234  WORD  c:\project\stm8\bit_asm\stm8l101.asm(139)
+USART_CR2                             5235  WORD  c:\project\stm8\bit_asm\stm8l101.asm(140)
+USART_CR3                             5236  WORD  c:\project\stm8\bit_asm\stm8l101.asm(141)
+USART_CR4                             5237  WORD  c:\project\stm8\bit_asm\stm8l101.asm(142)
+
+WFE_CR1                               50A6  WORD  c:\project\stm8\bit_asm\stm8l101.asm(69)
+WFE_CR2                               50A7  WORD  c:\project\stm8\bit_asm\stm8l101.asm(70)
+
+adc_shift                             85F2  WORD  c:\project\stm8\bit_asm\rom.asm(9)
+adc_koef                              85F4  WORD  c:\project\stm8\bit_asm\rom.asm(10)
+adc_reg_init                          85F6  WORD  c:\project\stm8\bit_asm\rom.asm(11)
+
+crc_hi                                0060  WORD  c:\project\stm8\bit_asm\main.asm(64)
+crc_lo                                0061  WORD  c:\project\stm8\bit_asm\main.asm(65)
+crc_cnt                               0062  WORD  c:\project\stm8\bit_asm\main.asm(66)
+crc_index                             0063  WORD  c:\project\stm8\bit_asm\main.asm(67)
+
+delay_10ms                            85CB  WORD  c:\project\stm8\bit_asm\utils.asm(14)
+delay                                 85BC  WORD  c:\project\stm8\bit_asm\utils.asm(5)
+
+i2c_init                              8080  WORD  c:\project\stm8\bit_asm\ads1115.asm(30)
+i2c_wait_busy                         80B1  WORD  c:\project\stm8\bit_asm\ads1115.asm(47)
+i2c_wait_TX                           80B7  WORD  c:\project\stm8\bit_asm\ads1115.asm(51)
+i2c_start_condition                   80BD  WORD  c:\project\stm8\bit_asm\ads1115.asm(55)
+i2c_stop_condition                    80C7  WORD  c:\project\stm8\bit_asm\ads1115.asm(61)
+i2c_test_addr_complete                80CC  WORD  c:\project\stm8\bit_asm\ads1115.asm(65)
+i2c_ads_init                          80D7  WORD  c:\project\stm8\bit_asm\ads1115.asm(71)
+i2c_ads_read                          8101  WORD  c:\project\stm8\bit_asm\ads1115.asm(92)
+
+lock_memory                           85B3  WORD  c:\project\stm8\bit_asm\main.asm(176)
+
+mb_address                            85F0  WORD  c:\project\stm8\bit_asm\rom.asm(8)
+mb_input_read                         82D3  WORD  c:\project\stm8\bit_asm\uart_mb.asm(164)
+mb_holding_read                       8317  WORD  c:\project\stm8\bit_asm\uart_mb.asm(196)
+mb_holding_write                      835B  WORD  c:\project\stm8\bit_asm\uart_mb.asm(229)
+main                                  850E  WORD  c:\project\stm8\bit_asm\main.asm(99)
+
+parse_modbus                          8254  WORD  c:\project\stm8\bit_asm\uart_mb.asm(87)
+
+temp1_w                               0078  WORD  c:\project\stm8\bit_asm\main.asm(70)
+temp1_b                               0080  WORD  c:\project\stm8\bit_asm\main.asm(74)
+temp2_w                               007A  WORD  c:\project\stm8\bit_asm\main.asm(71)
+temp3_w                               007C  WORD  c:\project\stm8\bit_asm\main.asm(72)
+temp4_w                               007E  WORD  c:\project\stm8\bit_asm\main.asm(73)
+temp2_b                               0081  WORD  c:\project\stm8\bit_asm\main.asm(75)
+temp3_b                               0082  WORD  c:\project\stm8\bit_asm\main.asm(76)
+temp4_b                               0083  WORD  c:\project\stm8\bit_asm\main.asm(77)
+
+uartrx_cnt                            0018  WORD  c:\project\stm8\bit_asm\main.asm(43)
+uarttx_cnt                            0038  WORD  c:\project\stm8\bit_asm\main.asm(52)
+uartrx_cnt_save                       0058  WORD  c:\project\stm8\bit_asm\main.asm(62)
+unlock_PROG                           85A1  WORD  c:\project\stm8\bit_asm\main.asm(166)
+uart_init                             8213  WORD  c:\project\stm8\bit_asm\uart_mb.asm(64)
+uart_mb_write                         847F  WORD  c:\project\stm8\bit_asm\uart_mb.asm(345)
+unlock_DATA                           85AA  WORD  c:\project\stm8\bit_asm\main.asm(171)
+
+
+198 labels

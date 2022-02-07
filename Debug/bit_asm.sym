@@ -1,0 +1,219 @@
+002106;00199;
+'CONSTANTS' 
+
+'ram0' D
+    0000 RegInput
+    0008 RegHolding
+    0010 RegMult_Hiest
+    0011 RegMult_Hi
+    0012 RegMult_Lo
+    0013 RegMult_Loest
+    0019 RxBuff
+    0019 RxBuff_addr
+    001A RxBuff_comm
+    001B RxBuff_a
+    001D RxBuff_q
+    001F RxBuff_n
+    0039 TxBuff
+    0039 TxBuff_addr
+    003A TxBuff_comm
+    003B TxBuff_a
+    003B TxBuff_n
+    003C TxBuff_d
+    003D TxBuff_q
+    0060 crc_hi
+    0061 crc_lo
+    0062 crc_cnt
+    0063 crc_index
+    0078 temp1_w
+    0080 temp1_b
+    0018 uartrx_cnt
+    0038 uarttx_cnt
+    0058 uartrx_cnt_save
+    007A temp2_w
+    007C temp3_w
+    007E temp4_w
+    0081 temp2_b
+    0082 temp3_b
+    0083 temp4_b
+
+'ram1' V
+
+'stack' V
+
+'rom' C
+    8080 i2c_init
+    80B1 i2c_wait_busy
+    80B7 i2c_wait_TX
+    80BD i2c_start_condition
+    80C7 i2c_stop_condition
+    80CC i2c_test_addr_complete
+    80D7 i2c_ads_init
+    8101 i2c_ads_read
+    83E5 RX_CRC
+    85CB delay_10ms
+    85B3 lock_memory
+    82D3 mb_input_read
+    8317 mb_holding_read
+    835B mb_holding_write
+    8254 parse_modbus
+    85A1 unlock_PROG
+    8213 uart_init
+    847F uart_mb_write
+    850E main
+    85AA unlock_DATA
+    85BC delay
+
+'vectit' S
+
+'eprom' S
+    85F2 adc_shift
+    85F4 adc_koef
+    85F6 adc_reg_init
+    85F0 mb_address
+
+'table' S
+    8600 CRC_Hi_table
+    8700 CRC_Lo_table
+
+'periph' V
+
+'periph2' D
+    5210 I2C_CR1
+    5211 I2C_CR2
+    5212 I2C_FREQR
+    5216 I2C_DR
+    5217 I2C_SR1
+    5219 I2C_SR3
+    521A I2C_ITR
+    521B I2C_CCRL
+    521C I2C_CCRH
+    521D I2C_TRISER
+    500C PC_DDR
+    500D PC_CR1
+    500E PC_CR2
+    500A PC_ODR
+    5230 USART_SR
+    5231 USART_DR
+    5232 USART_BRR1
+    5233 USART_BRR2
+    5234 USART_CR1
+    5235 USART_CR2
+    5005 PB_ODR
+    52E0 TIM4_CR1
+    52E3 TIM4_IER
+    52E4 TIM4_SR1
+    52E5 TIM4_EGR
+    52E7 TIM4_PSCR
+    52E8 TIM4_ARR
+    50C0 CLK_CKDIVR
+    50C3 CLK_PCKENR
+    5052 FLASH_PUKR
+    5053 FLASH_DUKR
+    5054 FLASH_IAPSR
+    5007 PB_DDR
+    5008 PB_CR1
+    5009 PB_CR2
+    50F0 AWU_CSR
+    50F1 AWU_APR
+    50F2 AWU_TBR
+    50F3 BEEP_CSR
+    50C5 CLK_CCOR
+    5300 COMP_CR
+    5301 COMP_CSR
+    5302 COMP_CCS
+    7F60 CFG_GCR
+    50A0 EXTI_CR1
+    50A1 EXTI_CR2
+    50A2 EXTI_CR3
+    50A3 EXTI_SR1
+    50A4 EXTI_SR2
+    50A5 EXTI_CONF
+    5050 FLASH_CR1
+    5051 FLASH_CR2
+    50E0 IWDG_KR
+    50E1 IWDG_PR
+    50E2 IWDG_RLR
+    5213 I2C_OARL
+    5214 I2C_OARH
+    5218 I2C_SR2
+    52FF IR_CR
+    7F70 ITC_SPR1
+    7F71 ITC_SPR2
+    7F72 ITC_SPR3
+    7F73 ITC_SPR4
+    7F74 ITC_SPR5
+    7F75 ITC_SPR6
+    7F76 ITC_SPR7
+    7F77 ITC_SPR8
+    5000 PA_ODR
+    5001 PA_IDR
+    5002 PA_DDR
+    5003 PA_CR1
+    5004 PA_CR2
+    5006 PB_IDR
+    500B PC_IDR
+    500F PD_ODR
+    5010 PD_IDR
+    5011 PD_DDR
+    5012 PD_CR1
+    5013 PD_CR2
+    50B0 RST_CR
+    50B1 RST_SR
+    5200 SPI_CR1
+    5201 SPI_CR2
+    5202 SPI_ICR
+    5203 SPI_SR
+    5204 SPI_DR
+    5250 TIM2_CR1
+    5251 TIM2_CR2
+    5252 TIM2_SMCR
+    5253 TIM2_ETR
+    5254 TIM2_IER
+    5255 TIM2_SR1
+    5256 TIM2_SR2
+    5257 TIM2_EGR
+    5258 TIM2_CCMR1
+    5259 TIM2_CCMR2
+    525A TIM2_CCER1
+    525B TIM2_CNTRH
+    525C TIM2_CNTRL
+    525D TIM2_PSCR
+    525E TIM2_ARRH
+    525F TIM2_ARRL
+    5260 TIM2_CCR1H
+    5261 TIM2_CCR1L
+    5262 TIM2_CCR2H
+    5263 TIM2_CCR2L
+    5264 TIM2_BKR
+    5265 TIM2_OISR
+    5280 TIM3_CR1
+    5281 TIM3_CR2
+    5282 TIM3_SMCR
+    5283 TIM3_ETR
+    5284 TIM3_IER
+    5285 TIM3_SR1
+    5286 TIM3_SR2
+    5287 TIM3_EGR
+    5288 TIM3_CCMR1
+    5289 TIM3_CCMR2
+    528A TIM3_CCER1
+    528B TIM3_CNTRH
+    528C TIM3_CNTRL
+    528D TIM3_PSCR
+    528E TIM3_ARRH
+    528F TIM3_ARRL
+    5290 TIM3_CCR1H
+    5291 TIM3_CCR1L
+    5292 TIM3_CCR2H
+    5293 TIM3_CCR2L
+    5294 TIM3_BKR
+    5295 TIM3_OISR
+    52E1 TIM4_CR2
+    52E2 TIM4_SMCR
+    52E6 TIM4_CNTR
+    5236 USART_CR3
+    5237 USART_CR4
+    50A6 WFE_CR1
+    50A7 WFE_CR2
+
